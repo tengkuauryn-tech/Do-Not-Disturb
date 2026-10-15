@@ -1,0 +1,31 @@
+ID,SceneID,NodeType,Speaker,DialogueText,TriggerAction,SFX,ChoiceA,ChoiceB,ChoiceC,ChoiceD,TargetSceneA,TargetSceneB,TargetSceneC,TargetSceneD,NextSceneID
+1,SCENE_00_01,DIALOGUE,KIRANA_NARRATION,"Yah, udah masuk semester baru.",FADE_IN_KAMAR,-,,,,,,,,,SCENE_00_01
+2,SCENE_00_01,DIALOGUE,KIRANA_NARRATION,AGHHHHH.,-,-,,,,,,,,,SCENE_00_01
+3,SCENE_00_01,SFX,SYSTEM,,-,beep,,,,,,,,,SCENE_00_01
+4,SCENE_00_01,DIALOGUE,KIRANA,"Mana ini waktu cepet banget, udah mau masuk.",SHAKE_HP,-,,,,,,,,,SCENE_00_01
+5,SCENE_00_01,DIALOGUE,KIRANA,AHHHH MALAAS.,-,-,,,,,,,,,SCENE_00_01
+6,SCENE_00_01,SFX,SYSTEM,,-,beep_beep_beep,,,,,,,,,SCENE_01_01
+7,SCENE_01_01,DIALOGUE,KIRANA,"Giliran libur gaada yang ngechat, giliran udah masuk malah nyepam.",-,-,Buka chat dosen,Buka grup kelas,Tutup HP,[DnD] Heningkan HP & langsung mandi,CHOICE_01_A,CHOICE_01_B,CHOICE_01_C,CHOICE_01_D,SCENE_01_01_CHOICE
+8,SCENE_01_01_CHOICE,SYSTEM,SYSTEM,,TRIGGER_CHOICE_01,-,,,,,,,,,
+9,CHOICE_01_A,VISUAL,SYSTEM,,SHOW_CHAT_DOSEN,-,,,,,,,,,CHOICE_01_A
+10,CHOICE_01_A,DIALOGUE,KIRANA,"Fyuuh, untung aja kelas diundur jadi ga telat deh.",-,-,,,,,,,,,SCENE_01_02
+11,CHOICE_01_B,VISUAL,SYSTEM,,SHOW_CHAT_GRUP,-,,,,,,,,,CHOICE_01_B
+12,CHOICE_01_B,DIALOGUE,KIRANA,Duh apalagi sih baru juga masuk.,-,-,,,,,,,,,SCENE_01_02
+13,CHOICE_01_C,VISUAL,SYSTEM,,FLIP_HP,-,,,,,,,,,CHOICE_01_C
+14,CHOICE_01_C,WAIT,SYSTEM,Beberapa detik kemudian...,WAIT_SHORT,-,,,,,,,,,CHOICE_01_C
+15,CHOICE_01_C,SFX,SYSTEM,,-,beep,,,,,,,,,CHOICE_01_C
+16,CHOICE_01_C,VISUAL,SYSTEM,,SHOW_HP,-,,,,,,,,,CHOICE_01_C
+17,CHOICE_01_C,DIALOGUE,KIRANA,Ah udah banyak aja nih notifikasinya.,-,-,,,,,,,,,SCENE_01_02
+18,CHOICE_01_D,VISUAL,SYSTEM,,DND_ACTIVE,-,,,,,,,,,CHOICE_01_D
+19,CHOICE_01_D,DIALOGUE,KIRANA,"Nanti aja deh, mandi dulu.",-,-,,,,,,,,,SCENE_01_02
+20,SCENE_01_02,BACKGROUND,SYSTEM,,SHOW_WA_INTERFACE,beep,,,,,,,,,CHOICE_02_B
+21,CHOICE_02_B,DIALOGUE,KIRANA,Jawab nanti aja deh.,-,-,,,,,,,,,SCENE_01_03
+22,SCENE_01_03,BACKGROUND,SYSTEM,,BG_KELAS,-,,,,,,,,,SCENE_01_03
+23,SCENE_01_03,DIALOGUE,PAK HENDRA,"Sebelum mulai, saya ingin mengingatkan satu hal.",-,-,,,,,,,,,SCENE_01_03
+24,SCENE_01_03,DIALOGUE,PAK HENDRA,Belakangan ada informasi yang beredar mengenai soal UTS.,-,-,,,,,,,,,SCENE_01_03
+25,SCENE_01_03,DIALOGUE,PAK HENDRA,"Sebenarnya itu terserah kalian, toh kalian sudah dewasa. Harus pintar-pintar dalam memilah informasi.",TRIGGER_CHOICE_03,-,Catat instruksi,Main HP,Tanya langsung,,CHOICE_03_A,CHOICE_03_B,CHOICE_03_C,,
+26,CHOICE_03_A,VISUAL,SYSTEM,,KIRANA_CATAT,-,,,,,,,,,CHOICE_03_A
+27,CHOICE_03_A,DIALOGUE,PAK HENDRA,"Bagus, Kirana. Lanjutkan.",-,-,,,,,,,,,END
+28,CHOICE_03_B,DIALOGUE,NARRATION,"Pak Hendra berhenti sebentar, menatap KIRANA tanpa berkata apa-apa.",KIRANA_MAIN_HP,-,,,,,,,,,END
+29,CHOICE_03_C,DIALOGUE,KIRANA,"Maaf Pak, izin bertanya. Kalau kita mendapatkan informasi seperti itu, mending diam saja atau bagaimana ya, Pak?",-,-,,,,,,,,,CHOICE_03_C
+30,CHOICE_03_C,DIALOGUE,PAK HENDRA,Tanya sumber pertama. Jangan ikut menyebarkan sesuatu yang bahkan belum kamu pahami.,-,-,,,,,,,,,END
