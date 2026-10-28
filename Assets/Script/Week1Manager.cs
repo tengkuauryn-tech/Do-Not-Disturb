@@ -12,6 +12,7 @@ public class Week1Manager : MonoBehaviour
 
     [Header("Main Containers")]
     public GameObject week1Section;
+    public Week2Manager week2Manager;
     public GameObject phoneMainListChat;   
     public GameObject phoneViewInsideChat; 
     public GameObject phoneViewScreenOff;  
@@ -82,7 +83,7 @@ public class Week1Manager : MonoBehaviour
     public Image blackOverlay;             
     public TMP_Text interludeText;         
     public GameObject tablePhoneView;      
-    public GameObject tablePhoneNotifOn;    
+    public GameObject tablePhoneNotifOn;   
     #endregion
 
     #region GLOBAL UI & DIALOGUE SYSTEM
@@ -99,11 +100,11 @@ public class Week1Manager : MonoBehaviour
     public Sprite dialogBoxTaraSprite;     
 
     [Header("Header Elements")]
-    public TMP_Text headerNameText;       
-    public Image headerProfileImage;      
-    public Sprite dosenProfileSprite;     
-    public Sprite grupProfileSprite;      
-    public Sprite taraProfileSprite;      
+    public TMP_Text headerNameText;        
+    public Image headerProfileImage;       
+    public Sprite dosenProfileSprite;      
+    public Sprite grupProfileSprite;       
+    public Sprite taraProfileSprite;       
 
     [Header("DND Mechanic Controls")]
     public Button dndToggleButton;
@@ -314,7 +315,7 @@ public class Week1Manager : MonoBehaviour
 
     public void OnSelectOption3A()
     {
-        HideDialogBoxInstant(); // Sembunyikan dialog box agar tidak nyangkut frame sebelumnya
+        HideDialogBoxInstant(); 
         HideChoicePanel1_3();
         if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine);
         activeSceneCoroutine = StartCoroutine(RunOption3ASequence());
@@ -406,11 +407,23 @@ public class Week1Manager : MonoBehaviour
         yield return StartCoroutine(TransitionToNextSection());
     }
 
-    private IEnumerator TransitionToNextSection()
+   private IEnumerator TransitionToNextSection()
     {
+        // 1. Fade out dialog dan matikan background Week 1
         yield return StartCoroutine(FadeOutDialogBoxSmooth(0.3f));
         if (hendraCharacterImage != null) hendraCharacterImage.gameObject.SetActive(false);
         if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
+
+        // 2. Matikan total section Week 1
+        if (week1Section != null) week1Section.SetActive(false);
+        if (statusPanel != null) statusPanel.SetActive(false); // Matikan jika status panel nggak dipake di awal wk 2
+
+        // 3. Panggil dan nyalakan Week 2
+        if (week2Manager != null)
+        {
+            week2Manager.gameObject.SetActive(true); // Pastikan object Week 2 nyala
+            week2Manager.StartWeek2(); // Jalankan fungsi CSV Week 2
+        }
     }
     #endregion
 
@@ -423,7 +436,6 @@ public class Week1Manager : MonoBehaviour
         {
             string cleanSpeaker = speaker != null ? speaker.Trim().ToUpper() : "";
 
-            // HANYA pakai frame Pak Hendra kalau speakernya benar-benar Pak Hendra
             if ((cleanSpeaker.Contains("HENDRA") || cleanSpeaker.Contains("PAK")) && dialogBoxHendraSprite != null)
             {
                 dialogBoxBackgroundImage.sprite = dialogBoxHendraSprite;
@@ -518,7 +530,8 @@ public class Week1Manager : MonoBehaviour
             }
         }
 
-        yield return StartCoroutine(TransitionToSceneHendra());
+        // Option A lanjut ke chat Tara (SCENE_01_02)
+        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("SCENE_01_02"));
     }
 
     public void OnSelectOptionB() 
@@ -558,7 +571,8 @@ public class Week1Manager : MonoBehaviour
             }
         }
 
-        yield return StartCoroutine(TransitionToSceneHendra());
+        // Option B lanjut ke chat Tara (SCENE_01_02)
+        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("SCENE_01_02"));
     }
 
     public void OnSelectOptionC() 
@@ -609,26 +623,75 @@ public class Week1Manager : MonoBehaviour
         yield return StartCoroutine(ShowDialogueWithTyping("Kirana", "Ah udah banyak aja nih notifikasinya."));
         yield return StartCoroutine(WaitForTap());
 
+        // REVISI DOSEN: Option C (Tutup HP) langsung ke Scene Pak Hendra, melewati chat Tara
         yield return StartCoroutine(TransitionToSceneHendra());
     }
 
-    public void ToggleDNDState()
+   public void ToggleDNDState()
+{
+    HideDialogBoxInstant();
+    isDndActive = true;
+
+    if (dndToggleImage != null && dndOnSprite != null) dndToggleImage.sprite = dndOnSprite;
+    if (dndStatusIcon != null) dndStatusIcon.SetActive(true);
+
+    PlaySFX(beepSFX);
+    
+    // Panggil transisi khusus DND
+    if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine);
+    activeSceneCoroutine = StartCoroutine(TransitionDNDToHendra());
+}
+
+private IEnumerator TransitionDNDToHendra()
+{
+    yield return StartCoroutine(FadeOutDialogBoxSmooth(0.3f));
+
+    if (interludeText != null) interludeText.gameObject.SetActive(false);
+
+    if (blackOverlay != null)
     {
-        HideDialogBoxInstant();
-        isDndActive = true;
-
-        if (dndToggleImage != null && dndOnSprite != null) dndToggleImage.sprite = dndOnSprite;
-        if (dndStatusIcon != null) dndStatusIcon.SetActive(true);
-
-        PlaySFX(beepSFX);
-        StartCoroutine(TransitionToSceneHendra());
+        blackOverlay.gameObject.SetActive(true);
+        yield return StartCoroutine(FadeImageAlpha(blackOverlay, 0f, 1f, 0.4f));
     }
 
+    // Bersihkan UI HP
+    if (tablePhoneView != null) tablePhoneView.SetActive(false);
+    if (tablePhoneNotifOn != null) tablePhoneNotifOn.SetActive(false);
+    if (phoneViewInsideChat != null) phoneViewInsideChat.SetActive(false);
+    if (phoneMainListChat != null) phoneMainListChat.SetActive(false);
+    ClearAllChatBubbles();
+
+    if (choicePanelTaraCanvasGroup != null)
+    {
+        choicePanelTaraCanvasGroup.alpha = 0f;
+        SetCanvasGroupInteractable(choicePanelTaraCanvasGroup, false);
+        choicePanelTaraCanvasGroup.gameObject.SetActive(false);
+    }
+
+    // PENTING: Munculkan background ruang kelas & Pak Hendra di balik layar hitam
+    SetScene1_3Setup();
+
+    yield return new WaitForSeconds(0.2f);
+
+    // Mulai CSV Pak Hendra
+    activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("SCENE_01_03"));
+
+    yield return new WaitForSeconds(0.2f);
+
+    // Fade in dari hitam ke ruang kelas
+    if (blackOverlay != null)
+    {
+        yield return StartCoroutine(FadeImageAlpha(blackOverlay, 1f, 0f, 0.4f));
+        blackOverlay.gameObject.SetActive(false);
+    }
+}
     IEnumerator RunScene0102TaraSequence()
     {
         ClearAllChatBubbles();
         Sprite profileToUse = taraProfileSprite != null ? taraProfileSprite : dosenProfileSprite;
-        yield return StartCoroutine(PrepareInsideChatView("Sagara", profileToUse, temanChatContent));
+        
+        // REVISI NAMA: Header diubah menjadi "Tara"
+        yield return StartCoroutine(PrepareInsideChatView("Tara", profileToUse, temanChatContent));
 
         EnsureTapButtonActive();
 
@@ -1065,3 +1128,4 @@ public class Week1Manager : MonoBehaviour
     }
     #endregion
 }
+

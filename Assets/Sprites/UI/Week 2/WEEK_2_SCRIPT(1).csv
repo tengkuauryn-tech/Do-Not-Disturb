@@ -1,0 +1,19 @@
+ID,SceneID,NodeType,Speaker,DialogueText,TriggerAction,SFX,ChoiceA,ChoiceB,ChoiceC,ChoiceD,TargetSceneA,TargetSceneB,TargetSceneC,TargetSceneD,NextSceneID
+1,SCENE_02_01,BACKGROUND,SYSTEM,Ruang Kelas (Ramai),SHOW_CLASSROOM,-,,,,,,,,,SCENE_02_01
+2,SCENE_02_01,DIALOGUE,KIRANA_NARRATION,MC duduk di kelas sambil menunggu dosen.,-,-,,,,,,,,,SCENE_02_01
+3,SCENE_02_01,DIALOGUE,SAGARA,Permisi.. kamu duduk disini ya?,-,-,,,,,,,,,SCENE_02_01
+4,SCENE_02_01,DIALOGUE,SAGARA,Tadi kacamata aku kayaknya jatuh deh... kayaknya di sekitar sini.,-,-,Pura-pura tidak lihat,Tanya kehilangan apa,Ambilkan kacamata,,CHOICE_02_A,CHOICE_02_B,CHOICE_02_C,,SCENE_02_01_CHOICE
+5,SCENE_02_01_CHOICE,SYSTEM,SYSTEM,,TRIGGER_CHOICE_02,-,,,,,,,,,
+6,CHOICE_02_A,VISUAL,SYSTEM,,SHOW_PHONE_DISTANT,-,,,,,,,,,CHOICE_02_A
+7,CHOICE_02_A,DIALOGUE,KIRANA,"Apasih, ganggu mood aja.",-,-,,,,,,,,,CHOICE_02_A
+8,CHOICE_02_A,DIALOGUE,SAGARA,Oh... Ternyata ada di tas.,-,-,,,,,,,,,CHOICE_02_A
+9,CHOICE_02_A,DIALOGUE,KIRANA,Siapa sih dia.,-,-,,,,,,,,,END
+10,CHOICE_02_B,VISUAL,SYSTEM,,SHOW_NEUTRAL_INTERACTION,-,,,,,,,,,CHOICE_02_B
+11,CHOICE_02_B,DIALOGUE,KIRANA,Eh.. nyari kacamata ya??,-,-,,,,,,,,,CHOICE_02_B
+12,CHOICE_02_B,DIALOGUE,SAGARA,Iya.,-,-,,,,,,,,,CHOICE_02_B
+13,CHOICE_02_B,DIALOGUE,SAGARA,"Eh, ketemu! Oiya kenalin aku Sagara",-,-,,,,,,,,,CHOICE_02_B
+14,CHOICE_02_B,DIALOGUE,KIRANA,Kirana,-,-,,,,,,,,,END
+15,CHOICE_02_C,VISUAL,SYSTEM,,SHOW_CLOSE_INTERACTION,-,,,,,,,,,CHOICE_02_C
+16,CHOICE_02_C,DIALOGUE,KIRANA,Ini punya kamu bukan?,-,-,,,,,,,,,CHOICE_02_C
+17,CHOICE_02_C,DIALOGUE,SAGARA,"Oh iya benar! Makasih ya, kenalin aku Sagara, nama kamu siapa?",-,-,,,,,,,,,CHOICE_02_C
+18,CHOICE_02_C,DIALOGUE,KIRANA,Aku Kirana,-,-,,,,,,,,,END
