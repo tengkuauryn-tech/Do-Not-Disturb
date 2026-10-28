@@ -13,6 +13,30 @@ public class Week2Manager : MonoBehaviour
     public GameObject week2Section;
     public Image mainBackgroundImage;
     public Image sagaraCharacterImage;
+    public Image kiranaSagaraCG;      
+    public Image sagaraIntroCG;       
+
+    [Header("Option C 3 Separate UI Images")]
+    public Image optCGiveGlasses;     
+    public Image optCWearGlasses;     
+    public Image optCFinalSmile;      
+
+    [Header("Global UI / Status Panel (Biar Temanmu Bisa Coding Indikator)")]
+    public GameObject statusPanel;    // Tarik GameObject panel status/indikator ke sini lewat Inspector
+
+    [Header("Sprites for Option A")]
+    public Sprite kiranaNormalSprite;   
+    public Sprite kiranaLookingSprite;  
+    public Sprite sagaraSmileSprite;    
+
+    [Header("Sprites for Option B (Path Neutral)")]
+    public Sprite sagaraUnderTableSprite; 
+    public Sprite sagaraIntroSprite;      
+
+    [Header("Sprites for Option C (Path Close / Akrab)")]
+    public Sprite kiranaGiveGlassesSprite; 
+    public Sprite sagaraWearGlassesSprite; 
+    public Sprite sagaraFinalSmileSprite;  
 
     [Header("Dialogue System")]
     public GameObject dialogPanel; 
@@ -31,8 +55,8 @@ public class Week2Manager : MonoBehaviour
     [Header("Choice Panel Week 2")]
     public CanvasGroup choicePanelWeek2;
     public CanvasGroup[] optionCanvasGroups;
-    public float delayBeforeFirstButton = 0.4f;
-    public float delayBetweenButtons = 0.2f;
+    public float delayBeforeFirstButton = 0.2f;
+    public float delayBetweenButtons = 0.15f;
 
     private List<Dictionary<string, string>> csvData;
     private string currentSceneID = "SCENE_02_01";
@@ -44,7 +68,13 @@ public class Week2Manager : MonoBehaviour
     public void StartWeek2()
     {
         if (week2Section != null) week2Section.SetActive(true);
-        
+
+        // OTOMATIS NYALAKAN PANEL STATUS/INDIKATOR DI AWAL WEEK 2
+        if (statusPanel != null)
+        {
+            statusPanel.SetActive(true);
+        }
+
         csvData = CSVReader.Read(csvFileName);
 
         EnsureTapButtonActive();
@@ -57,7 +87,6 @@ public class Week2Manager : MonoBehaviour
         ResetToMainState();
 
         if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine);
-        
         activeSceneCoroutine = StartCoroutine(ShowWeek2Transition());
     }
 
@@ -65,7 +94,6 @@ public class Week2Manager : MonoBehaviour
     {
         HideDialogBoxInstant();
         
-        // 1. Setup Awal (Hitam Pekat & Teks Nyala)
         if (blackOverlay != null)
         {
             blackOverlay.gameObject.SetActive(true);
@@ -79,53 +107,41 @@ public class Week2Manager : MonoBehaviour
             SetTextAlpha(interludeText, 1f); 
         }
 
-        // Matikan kelas dan Sagara di awal
         if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
         if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
+        if (kiranaSagaraCG != null) kiranaSagaraCG.gameObject.SetActive(false);
+        if (sagaraIntroCG != null) sagaraIntroCG.gameObject.SetActive(false);
+        if (optCGiveGlasses != null) optCGiveGlasses.gameObject.SetActive(false);
+        if (optCWearGlasses != null) optCWearGlasses.gameObject.SetActive(false);
+        if (optCFinalSmile != null) optCFinalSmile.gameObject.SetActive(false);
 
-        // 2. Tahan Title Card selama 2 detik
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.0f);
 
-        // 3. FADE OUT TEKS (Cepat)
         float timer = 0f;
-        float textFadeTime = 0.4f;
+        float textFadeTime = 0.25f;
         while (timer < textFadeTime)
         {
             timer += Time.deltaTime;
-            float currentAlpha = Mathf.Lerp(1f, 0f, timer / textFadeTime);
-            if (interludeText != null) SetTextAlpha(interludeText, currentAlpha);
+            if (interludeText != null) SetTextAlpha(interludeText, Mathf.Lerp(1f, 0f, timer / textFadeTime));
             yield return null;
         }
-        if (interludeText != null)
-        {
-            SetTextAlpha(interludeText, 0f);
-            interludeText.gameObject.SetActive(false); 
-        }
+        if (interludeText != null) interludeText.gameObject.SetActive(false); 
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
 
-        // 4. NYALAKAN KELAS KOSONG (Sagara tetap dimatikan dulu)
         if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
         
-        // 5. FADE OUT LAYAR HITAM 
         timer = 0f;
-        float bgFadeTime = 0.8f;
+        float bgFadeTime = 0.4f;
         while (timer < bgFadeTime)
         {
             timer += Time.deltaTime;
-            float currentAlpha = Mathf.Lerp(1f, 0f, timer / bgFadeTime);
-            if (blackOverlay != null) SetImageAlpha(blackOverlay, currentAlpha);
+            if (blackOverlay != null) SetImageAlpha(blackOverlay, Mathf.Lerp(1f, 0f, timer / bgFadeTime));
             yield return null;
         }
-        if (blackOverlay != null)
-        {
-            SetImageAlpha(blackOverlay, 0f);
-            blackOverlay.gameObject.SetActive(false); 
-        }
+        if (blackOverlay != null) blackOverlay.gameObject.SetActive(false); 
 
-        yield return new WaitForSeconds(0.3f);
-
-        // Mulai jalankan CSV (Sagara belum muncul, baru background kelas)
+        yield return new WaitForSeconds(0.15f);
         activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV(currentSceneID));
     }
 
@@ -147,7 +163,6 @@ public class Week2Manager : MonoBehaviour
 
                 if (trigger == "SHOW_CLASSROOM")
                 {
-                    // Hanya memunculkan background, Sagara tetap diumpetin dulu
                     if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
                 }
 
@@ -155,32 +170,195 @@ public class Week2Manager : MonoBehaviour
                 {
                     string cleanSpeaker = speaker != null ? speaker.Trim().ToUpper() : "";
 
-                    // DETEKSI OTOMATIS: Kalau ini dialognya Sagara dan gambarnya belum ada, munculin Sagara!
-                    if (cleanSpeaker.Contains("SAGARA") && sagaraCharacterImage != null && !sagaraCharacterImage.gameObject.activeSelf)
+                    // --- AUTO-SPLIT OPSI B ---
+                    if (currentSceneID == "CHOICE_02_B" && text.Contains("ketemu"))
                     {
-                        HideDialogBoxInstant(); // Hilangkan kotak dialog narasi MC sementara
-                        
-                        sagaraCharacterImage.gameObject.SetActive(true);
-                        SetImageAlpha(sagaraCharacterImage, 0f);
-
-                        float timer = 0f;
-                        float sagaraFadeTime = 0.5f;
-                        while (timer < sagaraFadeTime)
+                        string[] parts = text.Split(new string[] { "!" }, System.StringSplitOptions.RemoveEmptyEntries);
+                        if (parts.Length >= 2)
                         {
-                            timer += Time.deltaTime;
-                            float currentAlpha = Mathf.Lerp(0f, 1f, timer / sagaraFadeTime);
-                            SetImageAlpha(sagaraCharacterImage, currentAlpha);
-                            yield return null;
+                            if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
+                            {
+                                HideDialogBoxInstant();
+                                if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
+                                if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
+                                kiranaSagaraCG.gameObject.SetActive(true);
+                                if (sagaraUnderTableSprite != null) kiranaSagaraCG.sprite = sagaraUnderTableSprite;
+                                SetImageAlpha(kiranaSagaraCG, 1f);
+                            }
+                            yield return StartCoroutine(ShowDialogueWithTyping(speaker, parts[0].Trim() + "!"));
+                            yield return StartCoroutine(WaitForTap());
+
+                            if (kiranaSagaraCG != null) kiranaSagaraCG.gameObject.SetActive(false);
+                            if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
+                            if (sagaraIntroCG != null && sagaraIntroSprite != null)
+                            {
+                                sagaraIntroCG.gameObject.SetActive(true);
+                                sagaraIntroCG.sprite = sagaraIntroSprite;
+                                SetImageAlpha(sagaraIntroCG, 1f);
+                            }
+                            yield return StartCoroutine(ShowDialogueWithTyping(speaker, parts[1].Trim()));
+                            yield return StartCoroutine(WaitForTap());
+
+                            goto ContinueLoop;
                         }
-                        SetImageAlpha(sagaraCharacterImage, 1f);
-                        yield return new WaitForSeconds(0.3f); // Jeda sebelum teksnya muncul
+                    }
+
+                    // --- AUTO-SPLIT OPSI C ---
+                    if (currentSceneID == "CHOICE_02_C" && cleanSpeaker.Contains("SAGARA") && text.Contains("Makasih"))
+                    {
+                        if (optCGiveGlasses != null) optCGiveGlasses.gameObject.SetActive(false);
+
+                        if (optCWearGlasses != null)
+                        {
+                            HideDialogBoxInstant();
+                            if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
+                            optCWearGlasses.gameObject.SetActive(true);
+                            if (sagaraWearGlassesSprite != null) optCWearGlasses.sprite = sagaraWearGlassesSprite;
+                            SetImageAlpha(optCWearGlasses, 1f);
+                        }
+                        yield return StartCoroutine(ShowDialogueWithTyping(speaker, "Oh iya benar!"));
+                        yield return StartCoroutine(WaitForTap());
+
+                        if (optCWearGlasses != null) optCWearGlasses.gameObject.SetActive(false);
+                        if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
+                        if (optCFinalSmile != null)
+                        {
+                            optCFinalSmile.gameObject.SetActive(true);
+                            if (sagaraFinalSmileSprite != null) optCFinalSmile.sprite = sagaraFinalSmileSprite;
+                            SetImageAlpha(optCFinalSmile, 1f);
+                        }
+                        yield return StartCoroutine(ShowDialogueWithTyping(speaker, text));
+                        yield return StartCoroutine(WaitForTap());
+
+                        goto ContinueLoop;
+                    }
+
+                    // --- LOGIKA NORMAL ---
+                    if (cleanSpeaker.Contains("SAGARA"))
+                    {
+                        if (text.Contains("Permisi"))
+                        {
+                            if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
+                            {
+                                HideDialogBoxInstant();
+                                kiranaSagaraCG.gameObject.SetActive(true);
+                                if (kiranaNormalSprite != null) kiranaSagaraCG.sprite = kiranaNormalSprite;
+                                SetImageAlpha(kiranaSagaraCG, 0f);
+
+                                float timer = 0f;
+                                while (timer < 0.2f)
+                                {
+                                    timer += Time.deltaTime;
+                                    SetImageAlpha(kiranaSagaraCG, Mathf.Lerp(0f, 1f, timer / 0.2f));
+                                    yield return null;
+                                }
+                                SetImageAlpha(kiranaSagaraCG, 1f);
+                                if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
+                                yield return new WaitForSeconds(0.05f);
+                            }
+                        }
+                        else if (text.Contains("kacamata") && currentSceneID == "SCENE_02_01")
+                        {
+                            if (sagaraCharacterImage != null && !sagaraCharacterImage.gameObject.activeSelf)
+                            {
+                                HideDialogBoxInstant();
+                                if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
+                                sagaraCharacterImage.gameObject.SetActive(true);
+                                SetImageAlpha(sagaraCharacterImage, 1f);
+
+                                float timer = 0f;
+                                while (timer < 0.2f)
+                                {
+                                    timer += Time.deltaTime;
+                                    if (kiranaSagaraCG != null) SetImageAlpha(kiranaSagaraCG, Mathf.Lerp(1f, 0f, timer / 0.2f));
+                                    yield return null;
+                                }
+                                if (kiranaSagaraCG != null)
+                                {
+                                    SetImageAlpha(kiranaSagaraCG, 0f);
+                                    kiranaSagaraCG.gameObject.SetActive(false);
+                                }
+                                yield return new WaitForSeconds(0.05f);
+                            }
+                        }
+                    }
+
+                    // --- OPSI A ---
+                    if (currentSceneID == "CHOICE_02_A")
+                    {
+                        if (text.Contains("Apasih") || text.Contains("ganggu"))
+                        {
+                            if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
+                            {
+                                HideDialogBoxInstant();
+                                if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
+                                if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
+
+                                kiranaSagaraCG.gameObject.SetActive(true);
+                                if (kiranaNormalSprite != null) kiranaSagaraCG.sprite = kiranaNormalSprite;
+                                SetImageAlpha(kiranaSagaraCG, 1f);
+                            }
+                        }
+                        else if (text.Contains("Ternyata ada di tas"))
+                        {
+                            if (kiranaSagaraCG != null && kiranaLookingSprite != null) kiranaSagaraCG.sprite = kiranaLookingSprite;
+                        }
+                        else if (text.Contains("Siapa sih dia"))
+                        {
+                            if (kiranaSagaraCG != null) kiranaSagaraCG.gameObject.SetActive(false);
+                            if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
+                            if (sagaraCharacterImage != null && sagaraSmileSprite != null)
+                            {
+                                sagaraCharacterImage.gameObject.SetActive(true);
+                                sagaraCharacterImage.sprite = sagaraSmileSprite;
+                                SetImageAlpha(sagaraCharacterImage, 1f);
+                            }
+                        }
+                    }
+
+                    // --- OPSI B ---
+                    if (currentSceneID == "CHOICE_02_B")
+                    {
+                        if (text.Contains("nyari kacamata") || text.Contains("Iya"))
+                        {
+                            if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
+                            {
+                                HideDialogBoxInstant();
+                                if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
+                                if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
+
+                                kiranaSagaraCG.gameObject.SetActive(true);
+                                if (sagaraUnderTableSprite != null) kiranaSagaraCG.sprite = sagaraUnderTableSprite;
+                                SetImageAlpha(kiranaSagaraCG, 1f);
+                            }
+                        }
+                    }
+
+                    // --- OPSI C ---
+                    if (currentSceneID == "CHOICE_02_C")
+                    {
+                        if (text.Contains("kamu bukan"))
+                        {
+                            if (optCGiveGlasses != null && !optCGiveGlasses.gameObject.activeSelf)
+                            {
+                                HideDialogBoxInstant();
+                                if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
+                                if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
+
+                                optCGiveGlasses.gameObject.SetActive(true);
+                                if (kiranaGiveGlassesSprite != null) optCGiveGlasses.sprite = kiranaGiveGlassesSprite;
+                                SetImageAlpha(optCGiveGlasses, 1f);
+                            }
+                        }
                     }
 
                     yield return StartCoroutine(ShowDialogueWithTyping(speaker, text));
                     yield return StartCoroutine(WaitForTap());
                 }
 
-                if (trigger == "TRIGGER_CHOICE_02")
+                ContinueLoop:
+
+                if (!string.IsNullOrEmpty(trigger) && trigger.Contains("TRIGGER_CHOICE"))
                 {
                     HideDialogBoxInstant();
                     if (invisibleTapButton != null) invisibleTapButton.gameObject.SetActive(false);
@@ -188,12 +366,12 @@ public class Week2Manager : MonoBehaviour
                     yield break; 
                 }
 
-               if (!string.IsNullOrEmpty(nextScene) && nextScene != currentSceneID && nextScene != "END")
+                if (!string.IsNullOrEmpty(nextScene) && nextScene != currentSceneID && nextScene != "END")
                 {
-                    // Pindah baca ke SceneID yang baru
                     activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV(nextScene));
                     yield break;
-                }}
+                }
+            }
         }
     }
 
@@ -219,12 +397,7 @@ public class Week2Manager : MonoBehaviour
         {
             dialogPanel.SetActive(true);
             CanvasGroup cg = dialogPanel.GetComponent<CanvasGroup>();
-            if (cg != null)
-            {
-                cg.alpha = 1f;
-                cg.interactable = true;
-                cg.blocksRaycasts = true;
-            }
+            if (cg != null) { cg.alpha = 1f; cg.interactable = true; cg.blocksRaycasts = true; }
         }
 
         fullTextHolder = text;
@@ -274,37 +447,32 @@ public class Week2Manager : MonoBehaviour
         HideDialogBoxInstant();
         if (choicePanelWeek2 != null)
         {
-            choicePanelWeek2.alpha = 0f;
-            choicePanelWeek2.interactable = false;
-            choicePanelWeek2.blocksRaycasts = false;
-            choicePanelWeek2.gameObject.SetActive(false);
+            choicePanelValueLocal(); 
+        }
+    }
+
+    private void choicePanelValueLocal()
+    {
+        if (choicePanelWeek2 != null)
+        {
+            choicePanelWeek2.alpha = 0f; choicePanelWeek2.interactable = false;
+            choicePanelWeek2.blocksRaycasts = false; choicePanelWeek2.gameObject.SetActive(false);
         }
     }
 
     IEnumerator AnimateButtonsStaggered(CanvasGroup[] targetButtons)
     {
         yield return new WaitForSeconds(delayBeforeFirstButton);
-
         if (choicePanelWeek2 != null)
         {
-            choicePanelWeek2.gameObject.SetActive(true);
-            choicePanelWeek2.alpha = 1f;
-            choicePanelWeek2.interactable = true;
-            choicePanelWeek2.blocksRaycasts = true;
+            choicePanelWeek2.gameObject.SetActive(true); choicePanelWeek2.alpha = 1f;
+            choicePanelWeek2.interactable = true; choicePanelWeek2.blocksRaycasts = true;
         }
-
         if (targetButtons != null)
         {
             foreach (CanvasGroup cg in targetButtons)
             {
-                if (cg != null)
-                {
-                    cg.gameObject.SetActive(true);
-                    cg.alpha = 1f;
-                    cg.interactable = true;
-                    cg.blocksRaycasts = true;
-                    yield return new WaitForSeconds(delayBetweenButtons);
-                }
+                if (cg != null) { cg.gameObject.SetActive(true); cg.alpha = 1f; cg.interactable = true; cg.blocksRaycasts = true; yield return new WaitForSeconds(delayBetweenButtons); }
             }
         }
     }
@@ -319,36 +487,12 @@ public class Week2Manager : MonoBehaviour
         if (txt != null) txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, alpha);
     }
 
-    // --- FUNGSI KLIK TOMBOL PILIHAN WEEK 2 ---
-    public void OnSelectOption2A()
-    {
-        DisableChoicePanelWeek2();
-        if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine);
-        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_A"));
-    }
-
-    public void OnSelectOption2B()
-    {
-        DisableChoicePanelWeek2();
-        if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine);
-        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_B"));
-    }
-
-    public void OnSelectOption2C()
-    {
-        DisableChoicePanelWeek2();
-        if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine);
-        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_C"));
-    }
+    public void OnSelectOption2A() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_A")); }
+    public void OnSelectOption2B() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_B")); }
+    public void OnSelectOption2C() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_C")); }
 
     private void DisableChoicePanelWeek2()
     {
-        if (choicePanelWeek2 != null)
-        {
-            choicePanelWeek2.alpha = 0f;
-            choicePanelWeek2.interactable = false;
-            choicePanelWeek2.blocksRaycasts = false;
-            choicePanelWeek2.gameObject.SetActive(false);
-        }
+        if (choicePanelWeek2 != null) { choicePanelWeek2.alpha = 0f; choicePanelWeek2.interactable = false; choicePanelWeek2.blocksRaycasts = false; choicePanelWeek2.gameObject.SetActive(false); }
     }
 }
