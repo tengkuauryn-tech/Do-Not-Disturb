@@ -21,8 +21,8 @@ public class Week2Manager : MonoBehaviour
     public Image optCWearGlasses;     
     public Image optCFinalSmile;      
 
-    [Header("Global UI / Status Panel (Biar Temanmu Bisa Coding Indikator)")]
-    public GameObject statusPanel;    // Tarik GameObject panel status/indikator ke sini lewat Inspector
+    [Header("Global UI / Status Panel")]
+    public GameObject statusPanel;    
 
     [Header("Sprites for Option A")]
     public Sprite kiranaNormalSprite;   
@@ -69,7 +69,6 @@ public class Week2Manager : MonoBehaviour
     {
         if (week2Section != null) week2Section.SetActive(true);
 
-        // OTOMATIS NYALAKAN PANEL STATUS/INDIKATOR DI AWAL WEEK 2
         if (statusPanel != null)
         {
             statusPanel.SetActive(true);
@@ -178,7 +177,6 @@ public class Week2Manager : MonoBehaviour
                         {
                             if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
                             {
-                                HideDialogBoxInstant();
                                 if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
                                 if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
                                 kiranaSagaraCG.gameObject.SetActive(true);
@@ -203,14 +201,14 @@ public class Week2Manager : MonoBehaviour
                         }
                     }
 
-                    // --- AUTO-SPLIT OPSI C ---
+                    // --- AUTO-SPLIT OPSI C (Diperbaiki agar kalimat lanjutannya tidak mengulang dari awal) ---
                     if (currentSceneID == "CHOICE_02_C" && cleanSpeaker.Contains("SAGARA") && text.Contains("Makasih"))
                     {
                         if (optCGiveGlasses != null) optCGiveGlasses.gameObject.SetActive(false);
 
+                        // Tahap 1: Visual Sagara pakai kacamata dengan dialog "Oh iya benar!"
                         if (optCWearGlasses != null)
                         {
-                            HideDialogBoxInstant();
                             if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
                             optCWearGlasses.gameObject.SetActive(true);
                             if (sagaraWearGlassesSprite != null) optCWearGlasses.sprite = sagaraWearGlassesSprite;
@@ -219,6 +217,7 @@ public class Week2Manager : MonoBehaviour
                         yield return StartCoroutine(ShowDialogueWithTyping(speaker, "Oh iya benar!"));
                         yield return StartCoroutine(WaitForTap());
 
+                        // Tahap 2: Visual Sagara senyum hadap depan dengan sisa teks sambungannya ("Makasih ya, kenalin aku Sagara...")
                         if (optCWearGlasses != null) optCWearGlasses.gameObject.SetActive(false);
                         if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
                         if (optCFinalSmile != null)
@@ -227,7 +226,10 @@ public class Week2Manager : MonoBehaviour
                             if (sagaraFinalSmileSprite != null) optCFinalSmile.sprite = sagaraFinalSmileSprite;
                             SetImageAlpha(optCFinalSmile, 1f);
                         }
-                        yield return StartCoroutine(ShowDialogueWithTyping(speaker, text));
+                        
+                        // Ambil teks setelah kata "benar!" agar tidak mengulang kata "Oh iya benar!"
+                        string remainingText = text.Contains("benar!") ? text.Substring(text.IndexOf("benar!") + 6).Trim() : text;
+                        yield return StartCoroutine(ShowDialogueWithTyping(speaker, remainingText));
                         yield return StartCoroutine(WaitForTap());
 
                         goto ContinueLoop;
@@ -240,45 +242,25 @@ public class Week2Manager : MonoBehaviour
                         {
                             if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
                             {
-                                HideDialogBoxInstant();
                                 kiranaSagaraCG.gameObject.SetActive(true);
                                 if (kiranaNormalSprite != null) kiranaSagaraCG.sprite = kiranaNormalSprite;
-                                SetImageAlpha(kiranaSagaraCG, 0f);
-
-                                float timer = 0f;
-                                while (timer < 0.2f)
-                                {
-                                    timer += Time.deltaTime;
-                                    SetImageAlpha(kiranaSagaraCG, Mathf.Lerp(0f, 1f, timer / 0.2f));
-                                    yield return null;
-                                }
                                 SetImageAlpha(kiranaSagaraCG, 1f);
                                 if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
-                                yield return new WaitForSeconds(0.05f);
                             }
                         }
                         else if (text.Contains("kacamata") && currentSceneID == "SCENE_02_01")
                         {
                             if (sagaraCharacterImage != null && !sagaraCharacterImage.gameObject.activeSelf)
                             {
-                                HideDialogBoxInstant();
                                 if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
                                 sagaraCharacterImage.gameObject.SetActive(true);
                                 SetImageAlpha(sagaraCharacterImage, 1f);
 
-                                float timer = 0f;
-                                while (timer < 0.2f)
-                                {
-                                    timer += Time.deltaTime;
-                                    if (kiranaSagaraCG != null) SetImageAlpha(kiranaSagaraCG, Mathf.Lerp(1f, 0f, timer / 0.2f));
-                                    yield return null;
-                                }
                                 if (kiranaSagaraCG != null)
                                 {
                                     SetImageAlpha(kiranaSagaraCG, 0f);
                                     kiranaSagaraCG.gameObject.SetActive(false);
                                 }
-                                yield return new WaitForSeconds(0.05f);
                             }
                         }
                     }
@@ -290,7 +272,6 @@ public class Week2Manager : MonoBehaviour
                         {
                             if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
                             {
-                                HideDialogBoxInstant();
                                 if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
                                 if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
 
@@ -323,7 +304,6 @@ public class Week2Manager : MonoBehaviour
                         {
                             if (kiranaSagaraCG != null && !kiranaSagaraCG.gameObject.activeSelf)
                             {
-                                HideDialogBoxInstant();
                                 if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
                                 if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
 
@@ -341,7 +321,6 @@ public class Week2Manager : MonoBehaviour
                         {
                             if (optCGiveGlasses != null && !optCGiveGlasses.gameObject.activeSelf)
                             {
-                                HideDialogBoxInstant();
                                 if (sagaraCharacterImage != null) sagaraCharacterImage.gameObject.SetActive(false);
                                 if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
 
@@ -413,12 +392,21 @@ public class Week2Manager : MonoBehaviour
 
         if (dialogueText != null) dialogueText.text = fullTextHolder;
         isTyping = false;
+        
+        yield return new WaitForSeconds(0.15f);
+        userTapped = false; 
     }
 
     public void OnUserTap()
     {
-        if (isTyping) isTyping = false;
-        else userTapped = true;
+        if (isTyping)
+        {
+            isTyping = false;
+        }
+        else
+        {
+            userTapped = true;
+        }
     }
 
     IEnumerator WaitForTap()
