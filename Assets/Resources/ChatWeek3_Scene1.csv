@@ -1,0 +1,14 @@
+id,type,sender,message,is_from_player,choice_id,next_id
+03_01_01,narration,Kirana,Udah tiga minggu aja ya kuliah. Ga kerasa...,FALSE,,03_01_02
+03_01_02,narration,Kirana,Berisik banget sih. Ada notifikasi apalagi sih?,FALSE,,03_01_03
+03_01_03,chat,Tara,Kir bagian makalah bab 2 bisa bantu selesain ga buat malem ini?,FALSE,,CHOICE_03_01
+CHOICE_03_01,choice,,,FALSE,A,03_01_OPT_A
+CHOICE_03_01,choice,,,FALSE,B,03_01_OPT_B
+CHOICE_03_01,choice,,,FALSE,C,03_01_OPT_C
+CHOICE_03_01,choice,,,FALSE,D,03_01_OPT_D
+03_01_OPT_A,chat,Kirana,Oke nanti aku bantuin tar.,TRUE,,03_01_A2
+03_01_A2,chat,Tara,MAKASIHHHH YAA!,FALSE,,END
+03_01_OPT_B,chat,Kirana,Haloo sagara kamu masih online? Umm bisa bantuin tugas kelompok gaa?,TRUE,,03_01_B2
+03_01_B2,chat,Sagara,Amann kok aku bisa bantuin.,FALSE,,END
+03_01_OPT_C,narration,Kirana,Besok aja lah.,FALSE,,END
+03_01_OPT_D,narration,Kirana,Aduh berisik orang lagi belajar.,FALSE,,END

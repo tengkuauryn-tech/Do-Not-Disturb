@@ -14,12 +14,12 @@ public class Week2Manager : MonoBehaviour
     public Image mainBackgroundImage;
     public Image sagaraCharacterImage;
     public Image kiranaSagaraCG;      
-    public Image sagaraIntroCG;       
+    public Image sagaraIntroCG;      
 
     [Header("Option C 3 Separate UI Images")]
-    public Image optCGiveGlasses;     
-    public Image optCWearGlasses;     
-    public Image optCFinalSmile;      
+    public Image optCGiveGlasses;    
+    public Image optCWearGlasses;    
+    public Image optCFinalSmile;     
 
     [Header("Global UI / Status Panel")]
     public GameObject statusPanel;    
@@ -48,15 +48,19 @@ public class Week2Manager : MonoBehaviour
     public Sprite dialogBoxKiranaSprite;   
     public Sprite dialogBoxSagaraSprite;   
 
-    [Header("Transition Week 2")]
+    [Header("Transition Week 2 & 3")]
     public Image blackOverlay;       
     public TMP_Text interludeText;   
+    public Week3Manager week3ScriptTarget; 
 
     [Header("Choice Panel Week 2")]
     public CanvasGroup choicePanelWeek2;
     public CanvasGroup[] optionCanvasGroups;
     public float delayBeforeFirstButton = 0.2f;
     public float delayBetweenButtons = 0.15f;
+
+    // --- FLAG GLOBAL UNTUK PATH DISTANT (DIBACA DI WEEK 3) ---
+    public static bool isPathDistant = false;
 
     private List<Dictionary<string, string>> csvData;
     private string currentSceneID = "SCENE_02_01";
@@ -169,7 +173,6 @@ public class Week2Manager : MonoBehaviour
                 {
                     string cleanSpeaker = speaker != null ? speaker.Trim().ToUpper() : "";
 
-                    // --- AUTO-SPLIT OPSI B ---
                     if (currentSceneID == "CHOICE_02_B" && text.Contains("ketemu"))
                     {
                         string[] parts = text.Split(new string[] { "!" }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -201,12 +204,10 @@ public class Week2Manager : MonoBehaviour
                         }
                     }
 
-                    // --- AUTO-SPLIT OPSI C (Diperbaiki agar kalimat lanjutannya tidak mengulang dari awal) ---
                     if (currentSceneID == "CHOICE_02_C" && cleanSpeaker.Contains("SAGARA") && text.Contains("Makasih"))
                     {
                         if (optCGiveGlasses != null) optCGiveGlasses.gameObject.SetActive(false);
 
-                        // Tahap 1: Visual Sagara pakai kacamata dengan dialog "Oh iya benar!"
                         if (optCWearGlasses != null)
                         {
                             if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(false);
@@ -217,7 +218,6 @@ public class Week2Manager : MonoBehaviour
                         yield return StartCoroutine(ShowDialogueWithTyping(speaker, "Oh iya benar!"));
                         yield return StartCoroutine(WaitForTap());
 
-                        // Tahap 2: Visual Sagara senyum hadap depan dengan sisa teks sambungannya ("Makasih ya, kenalin aku Sagara...")
                         if (optCWearGlasses != null) optCWearGlasses.gameObject.SetActive(false);
                         if (mainBackgroundImage != null) mainBackgroundImage.gameObject.SetActive(true);
                         if (optCFinalSmile != null)
@@ -227,7 +227,6 @@ public class Week2Manager : MonoBehaviour
                             SetImageAlpha(optCFinalSmile, 1f);
                         }
                         
-                        // Ambil teks setelah kata "benar!" agar tidak mengulang kata "Oh iya benar!"
                         string remainingText = text.Contains("benar!") ? text.Substring(text.IndexOf("benar!") + 6).Trim() : text;
                         yield return StartCoroutine(ShowDialogueWithTyping(speaker, remainingText));
                         yield return StartCoroutine(WaitForTap());
@@ -235,7 +234,6 @@ public class Week2Manager : MonoBehaviour
                         goto ContinueLoop;
                     }
 
-                    // --- LOGIKA NORMAL ---
                     if (cleanSpeaker.Contains("SAGARA"))
                     {
                         if (text.Contains("Permisi"))
@@ -265,7 +263,6 @@ public class Week2Manager : MonoBehaviour
                         }
                     }
 
-                    // --- OPSI A ---
                     if (currentSceneID == "CHOICE_02_A")
                     {
                         if (text.Contains("Apasih") || text.Contains("ganggu"))
@@ -297,7 +294,6 @@ public class Week2Manager : MonoBehaviour
                         }
                     }
 
-                    // --- OPSI B ---
                     if (currentSceneID == "CHOICE_02_B")
                     {
                         if (text.Contains("nyari kacamata") || text.Contains("Iya"))
@@ -314,7 +310,6 @@ public class Week2Manager : MonoBehaviour
                         }
                     }
 
-                    // --- OPSI C ---
                     if (currentSceneID == "CHOICE_02_C")
                     {
                         if (text.Contains("kamu bukan"))
@@ -345,13 +340,74 @@ public class Week2Manager : MonoBehaviour
                     yield break; 
                 }
 
-                if (!string.IsNullOrEmpty(nextScene) && nextScene != currentSceneID && nextScene != "END")
+                if (nextScene == "END" || string.IsNullOrEmpty(nextScene))
+                {
+                    HideDialogBoxInstant();
+                    if (invisibleTapButton != null) invisibleTapButton.gameObject.SetActive(false);
+                    
+                    yield return StartCoroutine(TransitionToWeek3Routine());
+                    yield break;
+                }
+
+                if (!string.IsNullOrEmpty(nextScene) && nextScene != currentSceneID)
                 {
                     activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV(nextScene));
                     yield break;
                 }
             }
         }
+    }
+
+    IEnumerator TransitionToWeek3Routine()
+    {
+        if (blackOverlay != null)
+        {
+            blackOverlay.gameObject.SetActive(true);
+            float t = 0f;
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 1.5f;
+                SetImageAlpha(blackOverlay, Mathf.Lerp(0f, 1f, t));
+                yield return null;
+            }
+            SetImageAlpha(blackOverlay, 1f);
+        }
+
+        if (interludeText != null)
+        {
+            interludeText.gameObject.SetActive(true);
+            interludeText.text = "Week 3: Mid-Semester Pressure";
+            SetTextAlpha(interludeText, 1f);
+        }
+
+        yield return new WaitForSeconds(2.5f);
+
+        if (interludeText != null)
+        {
+            float t = 0f;
+            while (t < 1f)
+            {
+                t += Time.deltaTime * 2f;
+                SetTextAlpha(interludeText, Mathf.Lerp(1f, 0f, t));
+                yield return null;
+            }
+            interludeText.gameObject.SetActive(false);
+        }
+
+        if (week2Section != null) week2Section.SetActive(false);
+
+        if (week3ScriptTarget != null)
+        {
+            week3ScriptTarget.gameObject.SetActive(true);
+            week3ScriptTarget.StartWeek3();
+        }
+
+        if (blackOverlay != null)
+        {
+            blackOverlay.gameObject.SetActive(false);
+        }
+
+        enabled = false;
     }
 
     IEnumerator ShowDialogueWithTyping(string speaker, string text)
@@ -399,14 +455,8 @@ public class Week2Manager : MonoBehaviour
 
     public void OnUserTap()
     {
-        if (isTyping)
-        {
-            isTyping = false;
-        }
-        else
-        {
-            userTapped = true;
-        }
+        if (isTyping) isTyping = false;
+        else userTapped = true;
     }
 
     IEnumerator WaitForTap()
@@ -475,7 +525,15 @@ public class Week2Manager : MonoBehaviour
         if (txt != null) txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, alpha);
     }
 
-    public void OnSelectOption2A() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_A")); }
+    // --- PILIHAN A DI WEEK 2 (MENGAKTIFKAN FLAG DISTANT) ---
+    public void OnSelectOption2A() 
+    { 
+        isPathDistant = true; // Sagara dikunci di Week 3!
+        DisableChoicePanelWeek2(); 
+        if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); 
+        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_A")); 
+    }
+
     public void OnSelectOption2B() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_B")); }
     public void OnSelectOption2C() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_C")); }
 
