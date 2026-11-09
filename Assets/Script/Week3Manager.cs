@@ -35,14 +35,10 @@ public class Week3Manager : MonoBehaviour
     public CanvasGroup choicePanelWeek3;       
     public CanvasGroup[] optionCanvasGroups;   // Size: 4 (0: DND, 1: Tombol A, 2: Tombol B, 3: Tombol C)
 
-    [Header("Choice 3.01 Conditional Locks (Sagara Path)")]
-    public Button optionBSagaraButton;         
-    public CanvasGroup optionBCanvasGroup;     
-
     [Header("DND Mechanic Controls (Sprite Swap)")]
     public Button dndToggleButton;
     public Image dndToggleImage;          
-    public Sprite dndOffSprite;           
+    public Sprite dndOffSprite;          
     public Sprite dndOnSprite;            
     public GameObject dndStatusIcon;      
     [HideInInspector] public bool isDndActive = false;
@@ -184,28 +180,95 @@ public class Week3Manager : MonoBehaviour
             }
         }
 
-       yield return StartCoroutine(SpawnAndTypeChat("Kir bagian makalah bab 2 bisa bantu selesain ga buat malem ini?", false));
+        yield return StartCoroutine(SpawnAndTypeChat("Kir bagian makalah bab 2 bisa bantu selesain ga buat malem ini?", false));
 
-        // MATIKAN TOMBOL TAP INVISIBLE AGAR TIDAK MENGHALANGI KLIK PILIHAN
         if (invisibleTapButton != null) invisibleTapButton.gameObject.SetActive(false);
 
-        // --- TAHAP 5: MUNCULKAN PANEL PILIHAN INSTAN ---
-        CheckConditionalChoices();
-        ShowAllChoicesInstant();
+        // --- TAHAP 5: MUNCULKAN PANEL PILIHAN DINAMIS VIA CODING ---
+        SetupDynamicChoices();
     }
 
-    private void CheckConditionalChoices()
+    // ==========================================
+    // DYNAMIC CHOICES SETUP (TANPA GAP KOSONG)
+    // ==========================================
+    private void SetupDynamicChoices()
     {
-        if (Week2Manager.isPathDistant)
+        if (choicePanelWeek3 != null)
         {
-            if (optionBSagaraButton != null) optionBSagaraButton.interactable = false; 
-            if (optionBCanvasGroup != null) optionBCanvasGroup.alpha = 0.35f; 
+            choicePanelWeek3.gameObject.SetActive(true);
+            choicePanelWeek3.alpha = 1f;
+            SetCanvasGroupInteractable(choicePanelWeek3, true);
         }
-        else
+
+        if (optionCanvasGroups != null && optionCanvasGroups.Length >= 4)
         {
-            if (optionBSagaraButton != null) optionBSagaraButton.interactable = true;
-            if (optionBCanvasGroup != null) optionBCanvasGroup.alpha = 1f;
+            // Slot 0: Tombol DND (Tetap aktif)
+            if (optionCanvasGroups[0] != null)
+            {
+                optionCanvasGroups[0].gameObject.SetActive(true);
+                optionCanvasGroups[0].alpha = 1f;
+                SetCanvasGroupInteractable(optionCanvasGroups[0], true);
+            }
+
+            Button btn1 = optionCanvasGroups[1] != null ? optionCanvasGroups[1].GetComponent<Button>() : null;
+            Button btn2 = optionCanvasGroups[2] != null ? optionCanvasGroups[2].GetComponent<Button>() : null;
+            Button btn3 = optionCanvasGroups[3] != null ? optionCanvasGroups[3].GetComponent<Button>() : null;
+
+            if (Week2Manager.isPathDistant)
+            {
+                // PATH DISTANT:
+                // Slot 1 -> Ambil Alih Tugas
+                SetButtonContent(btn1, "A. Ambil alih tugas Tara", OnSelectOption3A);
+
+                // Slot 2 -> Abaikan Pesan (Pilihan C dipindah ke Slot 2)
+                SetButtonContent(btn2, "B. Abaikan pesan & tidur", OnSelectOption3C);
+
+                // Slot 3 -> Sembunyikan slot paling bawah agar tidak ada gap di tengah
+                if (optionCanvasGroups[3] != null)
+                {
+                    optionCanvasGroups[3].gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                // PATH NORMAL / CLOSE:
+                // Slot 1 -> Ambil Alih
+                SetButtonContent(btn1, "A. Ambil alih tugas Tara", OnSelectOption3A);
+
+                // Slot 2 -> Minta bantuan Sagara
+                SetButtonContent(btn2, "B. Minta bantuan Sagara", OnSelectOption3B);
+
+                // Slot 3 -> Abaikan Pesan
+                SetButtonContent(btn3, "C. Abaikan pesan & tidur", OnSelectOption3C);
+
+                if (optionCanvasGroups[3] != null)
+                {
+                    optionCanvasGroups[3].gameObject.SetActive(true);
+                    optionCanvasGroups[3].alpha = 1f;
+                    SetCanvasGroupInteractable(optionCanvasGroups[3], true);
+                }
+            }
         }
+    }
+
+    private void SetButtonContent(Button btn, string label, UnityEngine.Events.UnityAction action)
+    {
+        if (btn == null) return;
+
+        btn.gameObject.SetActive(true);
+        CanvasGroup cg = btn.GetComponent<CanvasGroup>();
+        if (cg != null)
+        {
+            cg.alpha = 1f;
+            cg.interactable = true;
+            cg.blocksRaycasts = true;
+        }
+
+        TMP_Text txt = btn.GetComponentInChildren<TMP_Text>();
+        if (txt != null) txt.text = label;
+
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(action);
     }
 
     // ==========================================
@@ -229,6 +292,8 @@ public class Week3Manager : MonoBehaviour
         yield return StartCoroutine(SpawnAndTypeChat("MAKASIHHHH YAA", false));
         PlaySFX(messageSFX);
         yield return new WaitForSeconds(1.0f);
+
+        yield return StartCoroutine(TransitionToWeek4());
     }
 
     public void OnSelectOption3B()
@@ -247,13 +312,19 @@ public class Week3Manager : MonoBehaviour
                 Destroy(child.gameObject);
         }
 
-        yield return StartCoroutine(SpawnAndTypeChat("Haloo sagara, kamu masih online? Umm bisa bantuin tugas kelompok gaa?", true));
+        yield return StartCoroutine(SpawnAndTypeChat("Haloo sagara, kamu masih online?", true));
+        PlaySFX(messageSFX);
+        yield return new WaitForSeconds(0.4f);
+
+        yield return StartCoroutine(SpawnAndTypeChat("Umm bisa bantuin tugas kelompok gaa?", true));
         PlaySFX(messageSFX);
         yield return new WaitForSeconds(0.6f);
 
         yield return StartCoroutine(SpawnAndTypeChat("Amann kok, aku bisa bantuin.", false));
         PlaySFX(messageSFX);
         yield return new WaitForSeconds(1.0f);
+
+        yield return StartCoroutine(TransitionToWeek4());
     }
 
     public void OnSelectOption3C()
@@ -276,11 +347,7 @@ public class Week3Manager : MonoBehaviour
 
         yield return new WaitForSeconds(0.4f);
 
-        if (blackOverlay != null)
-        {
-            blackOverlay.gameObject.SetActive(true);
-            yield return StartCoroutine(FadeImageAlpha(blackOverlay, 0f, 1f, 0.8f));
-        }
+        yield return StartCoroutine(TransitionToWeek4());
     }
 
     public void ToggleDNDState()
@@ -305,7 +372,6 @@ public class Week3Manager : MonoBehaviour
 
     IEnumerator RunDNDSequence()
     {
-        // Jalankan FadeOut bersamaan untuk Panel Pilihan (Blur Overlay) dan PhoneUI
         Coroutine fadeChoice = null;
         Coroutine fadePhone = null;
 
@@ -315,7 +381,6 @@ public class Week3Manager : MonoBehaviour
         if (phoneUI != null)
             fadePhone = StartCoroutine(FadeOutUI(phoneUI, 0.5f));
 
-        // Tunggu hingga proses fade out selesai
         if (fadeChoice != null) yield return fadeChoice;
         if (fadePhone != null) yield return fadePhone;
 
@@ -329,6 +394,38 @@ public class Week3Manager : MonoBehaviour
 
         yield return StartCoroutine(PlayDialog("Kirana", "Aduh berisik, orang lagi belajar juga..."));
         if (dialogBoxObject != null) dialogBoxObject.SetActive(false);
+
+        yield return StartCoroutine(TransitionToWeek4());
+    }
+
+    // ==========================================
+    // TRANSISI OTOMATIS KE WEEK 4
+    // ==========================================
+    IEnumerator TransitionToWeek4()
+    {
+        if (blackOverlay != null)
+        {
+            blackOverlay.gameObject.SetActive(true);
+            yield return StartCoroutine(FadeImageAlpha(blackOverlay, blackOverlay.color.a, 1f, 0.8f));
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.8f);
+        }
+
+        Week4Manager w4 = FindFirstObjectByType<Week4Manager>(FindObjectsInactive.Include);
+        if (w4 != null)
+        {
+            w4.enabled = true;
+            w4.StartWeek4();
+        }
+
+        if (week3Section != null)
+        {
+            week3Section.SetActive(false);
+        }
+
+        this.enabled = false;
     }
 
     // ==========================================
@@ -357,7 +454,6 @@ public class Week3Manager : MonoBehaviour
         GameObject prefab = isFromPlayer ? rightBubblePrefab : leftBubblePrefab;
         if (prefab != null)
         {
-            // Spawn bubble ke dalam chat container
             GameObject bubble = Instantiate(prefab, chatContainer, false); 
             TMP_Text textComp = bubble.GetComponentInChildren<TMP_Text>();
             
@@ -368,7 +464,6 @@ public class Week3Manager : MonoBehaviour
                 isTyping = true;
                 EnsureTapButtonActive();
 
-                // Ambil RectTransform untuk di-update paksa
                 RectTransform bubbleRect = bubble.GetComponent<RectTransform>();
                 RectTransform containerRect = chatContainer.GetComponent<RectTransform>();
 
@@ -377,9 +472,6 @@ public class Week3Manager : MonoBehaviour
                     if (!isTyping) break; 
                     textComp.text += c;
                     
-                    // --- KUNCI SOLUSINYA DI SINI ---
-                    // Paksa Unity update ukuran kotak bubble DAN dorong posisi di container
-                    // secara real-time SETIAP KALI SATU HURUF MUNCUL
                     Canvas.ForceUpdateCanvases();
                     if (bubbleRect != null) LayoutRebuilder.ForceRebuildLayoutImmediate(bubbleRect);
                     if (containerRect != null) LayoutRebuilder.ForceRebuildLayoutImmediate(containerRect);
@@ -390,7 +482,6 @@ public class Week3Manager : MonoBehaviour
                 textComp.text = fullChatTextHolder;
                 isTyping = false;
 
-                // Pastikan update sekali lagi pas teks udah full
                 Canvas.ForceUpdateCanvases();
                 if (bubbleRect != null) LayoutRebuilder.ForceRebuildLayoutImmediate(bubbleRect);
                 if (containerRect != null) LayoutRebuilder.ForceRebuildLayoutImmediate(containerRect);
@@ -466,29 +557,6 @@ public class Week3Manager : MonoBehaviour
             yield return null;
         }
         img.color = new Color(img.color.r, img.color.g, img.color.b, endAlpha);
-    }
-
-    private void ShowAllChoicesInstant()
-    {
-        if (choicePanelWeek3 != null)
-        {
-            choicePanelWeek3.gameObject.SetActive(true);
-            choicePanelWeek3.alpha = 1f;
-            SetCanvasGroupInteractable(choicePanelWeek3, true);
-        }
-
-        if (optionCanvasGroups != null)
-        {
-            foreach (CanvasGroup cg in optionCanvasGroups)
-            {
-                if (cg != null)
-                {
-                    cg.gameObject.SetActive(true);
-                    cg.alpha = 1f;
-                    SetCanvasGroupInteractable(cg, true);
-                }
-            }
-        }
     }
 
     private void ResetChoicePanel()

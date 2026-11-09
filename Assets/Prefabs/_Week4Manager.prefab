@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1180946607973254662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7796549065059492694}
+  - component: {fileID: 1453648931406893173}
+  m_Layer: 0
+  m_Name: _Week4Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7796549065059492694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180946607973254662}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 931.50604, y: 541.2571, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453648931406893173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180946607973254662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0b1a2034fd12242a97db538cd678a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Week4Manager
+  week4Section: {fileID: 0}
+  bgPortalNilai: {fileID: 0}
+  phoneUI: {fileID: 0}
+  contactNameText: {fileID: 0}
+  profilePicImage: {fileID: 0}
+  sagaraProfileSprite: {fileID: 1846851409557727549, guid: 86dd8c98fd48c334891b795ea634be49, type: 3}
+  chatContainer: {fileID: 0}
+  leftBubblePrefab: {fileID: 3056114623249971579, guid: 2d078777eeb7c2245a86b34693a05b68, type: 3}
+  rightBubblePrefab: {fileID: 1026804502406884486, guid: 01b5d22a82c5cf44ea0aba1cd31e8713, type: 3}
+  dialogBoxObject: {fileID: 0}
+  dialogueText: {fileID: 0}
+  invisibleTapButton: {fileID: 0}
+  dialogBoxKiranaSprite: {fileID: 9010811196934502220, guid: 950c69820c488f044b579f8f1665881e, type: 3}
+  choicePanelWeek4: {fileID: 0}
+  optionCanvasGroups:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  buttonAText: {fileID: 0}
+  buttonBText: {fileID: 0}
+  blackOverlay: {fileID: 0}
+  weekTitleText: {fileID: 0}
+  sfxSource: {fileID: 0}
+  messageSFX: {fileID: 0}
+  beepSFX: {fileID: 0}

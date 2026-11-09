@@ -1,0 +1,9 @@
+SceneID,NodeType,Speaker,DialogueText,TriggerAction,NextSceneID
+SCENE_05_01,DIALOGUE,Sagara,"Nah sesekali... kita gausah mikirin tugas.",SHOW_CAFE_SCENE,SCENE_05_01
+SCENE_05_01,DIALOGUE,Kirana,"Kayaknya... aku udah ga sedih lagi.",NONE,CHOICE_05_01
+SCENE_05_01,CHOICE,System,"Pilih jalur interaksi weekend:",TRIGGER_CHOICE_05,CHOICE_05_01
+CHOICE_05_01A,DIALOGUE,Kirana,"Kamu tau ga? Kayaknya semester ini jadi lebih gampang semenjak aku kenal kamu.",SHOW_ROMANCE_VISUAL,CHOICE_05_01A
+CHOICE_05_01A,DIALOGUE,Sagara,"Eh... makasih, aku ikut seneng kalo kamu seneng.",NONE,END
+CHOICE_05_01B,DIALOGUE,Kirana,"Eh ternyata belajar bareng di luar kaya gini seru ya.",SHOW_FRIENDSHIP_VISUAL_1,CHOICE_05_01B
+CHOICE_05_01B,DIALOGUE,Sagara,"Iya dong, nanti kapan-kapan kita belajar bareng lagi yuk.",SHOW_FRIENDSHIP_VISUAL_2,END
+SCENE_05_01B,DIALOGUE,Kirana,"Udah saatnya aku ngebales semua nilai jelek aku dengan nilai yang lebih bagus untuk yang selanjutnya. Mending weekend ini aku fokus belajar aja daripada pergi ke luar.",SHOW_SOLO_STUDY,END
