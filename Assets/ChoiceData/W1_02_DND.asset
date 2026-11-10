@@ -16,7 +16,7 @@ MonoBehaviour:
   task: 5
   stress: -2
   focus: 8
-  energy: 0
+  energy: 3
   relSagara: 0
   setFlag: tara_ignored
   butuhFlag: 

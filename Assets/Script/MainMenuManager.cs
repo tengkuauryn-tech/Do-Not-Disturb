@@ -3,31 +3,47 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // Dipanggil saat tombol START diklik (Mulai game baru)
-    public void PlayGame()
+    [Header("UI Panels")]
+    public GameObject panelCredit;
+    public GameObject panelSettings; // Wadah baru untuk panel Settings
+
+    private void Start()
     {
-        Debug.Log("Mulai Game Baru");
-        // Opsional: Hapus save data lama jika ingin reset total
-        // PlayerPrefs.DeleteAll(); 
-        
-        SceneManager.LoadScene("Gameplay");
+        // Memastikan kedua pop-up tertutup otomatis saat game baru mulai
+        if (panelCredit != null) panelCredit.SetActive(false);
+        if (panelSettings != null) panelSettings.SetActive(false);
     }
 
-    // Dipanggil saat tombol CONTINUE diklik (Melanjutkan progres)
-    public void ContinueGame()
-    {
-        Debug.Log("Melanjutkan Game");
-        // Nanti bisa dimuat data Week terakhir yang disimpan
-        SceneManager.LoadScene("Gameplay");
-    }
-
+    // ================= BAGIAN CREDIT =================
     public void OpenCredits()
     {
-        Debug.Log("Membuka Credit");
+        if (panelCredit != null) panelCredit.SetActive(true);
     }
 
+    public void CloseCredits()
+    {
+        if (panelCredit != null) panelCredit.SetActive(false);
+    }
+
+    // ================= BAGIAN SETTINGS =================
     public void OpenSettings()
     {
-        Debug.Log("Membuka Setting");
+        if (panelSettings != null) panelSettings.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        if (panelSettings != null) panelSettings.SetActive(false);
+    }
+
+    // ================= BAGIAN GAMEPLAY =================
+    public void PlayGame()
+    {
+        SceneManager.LoadScene("Gameplay");
+    }
+
+    public void ContinueGame()
+    {
+        SceneManager.LoadScene("Gameplay");
     }
 }

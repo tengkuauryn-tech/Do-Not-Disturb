@@ -16,7 +16,7 @@ MonoBehaviour:
   task: 0
   stress: 3
   focus: 0
-  energy: -5
+  energy: -10
   relSagara: 0
   setFlag: kirana_overwhelmed_early
   butuhFlag: 

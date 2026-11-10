@@ -2231,6 +2231,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1734393027}
+        m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
+        m_MethodName: TerapkanPilihan
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: f4cb39f2714c23847973bd1406e786dd, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ChoiceData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1265364780}
         m_TargetAssemblyTypeName: Week3Manager, Assembly-CSharp
         m_MethodName: OnSelectOption3B
@@ -6296,6 +6308,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1734393027}
+        m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
+        m_MethodName: TerapkanPilihan
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 08261045f2c3be0488e3e8b6f6530b05, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ChoiceData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1265364780}
         m_TargetAssemblyTypeName: Week3Manager, Assembly-CSharp
         m_MethodName: OnSelectOption3C
@@ -7426,6 +7450,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1734393027}
+        m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
+        m_MethodName: TerapkanPilihan
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 7850436e2e08b704396047f7fd0f783e, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ChoiceData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1265364780}
         m_TargetAssemblyTypeName: Week3Manager, Assembly-CSharp
         m_MethodName: ToggleDNDState
@@ -13811,6 +13847,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1734393027}
+        m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
+        m_MethodName: TerapkanPilihan
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 605df05a06a8ea64687d2761aed873ef, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ChoiceData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1265364780}
         m_TargetAssemblyTypeName: Week3Manager, Assembly-CSharp
         m_MethodName: OnSelectOption3A
