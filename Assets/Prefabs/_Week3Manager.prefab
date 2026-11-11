@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6775832452358889773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3553245431663983546}
+  - component: {fileID: 8085083249856976963}
+  m_Layer: 0
+  m_Name: _Week3Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3553245431663983546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775832452358889773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1143.0634, y: 945.8446, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8085083249856976963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775832452358889773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397e1079aa27a084396a64f8f1d1f4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Week3Manager
+  week3Section: {fileID: 0}
+  bgKamar: {fileID: 0}
+  bgLaptop: {fileID: 0}
+  bgNotifHP: {fileID: 0}
+  phoneUI: {fileID: 0}
+  contactNameText: {fileID: 0}
+  profilePicImage: {fileID: 0}
+  taraProfileSprite: {fileID: -8596804678143522348, guid: 4e6435cba744aca45ae4744ed90c7f0d, type: 3}
+  sagaraProfileSprite: {fileID: 1846851409557727549, guid: 86dd8c98fd48c334891b795ea634be49, type: 3}
+  chatContainer: {fileID: 0}
+  leftBubblePrefab: {fileID: 3056114623249971579, guid: 2d078777eeb7c2245a86b34693a05b68, type: 3}
+  rightBubblePrefab: {fileID: 1026804502406884486, guid: 01b5d22a82c5cf44ea0aba1cd31e8713, type: 3}
+  dialogBoxObject: {fileID: 0}
+  dialogueText: {fileID: 0}
+  invisibleTapButton: {fileID: 0}
+  dialogBoxKiranaSprite: {fileID: 9010811196934502220, guid: 950c69820c488f044b579f8f1665881e, type: 3}
+  choicePanelWeek3: {fileID: 0}
+  optionCanvasGroups:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dndToggleButton: {fileID: 0}
+  dndToggleImage: {fileID: 0}
+  dndOffSprite: {fileID: 8755604491773767630, guid: 3d95826d44e99d74ab492db0f74d09c3, type: 3}
+  dndOnSprite: {fileID: 8918552806983096723, guid: 7f044728066334e4bb89b332d0645a83, type: 3}
+  dndStatusIcon: {fileID: 0}
+  isDndActive: 0
+  blackOverlay: {fileID: 0}
+  sfxSource: {fileID: 0}
+  messageSFX: {fileID: 0}
+  beepSFX: {fileID: 0}

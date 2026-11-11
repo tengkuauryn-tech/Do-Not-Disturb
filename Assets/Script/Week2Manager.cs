@@ -59,7 +59,7 @@ public class Week2Manager : MonoBehaviour
     public float delayBeforeFirstButton = 0.2f;
     public float delayBetweenButtons = 0.15f;
 
-    // --- FLAG GLOBAL UNTUK PATH DISTANT (DIBACA DI WEEK 3) ---
+    // --- FLAG GLOBAL UNTUK PATH DISTANT (DIBACA DI WEEK 3, 4, 5) ---
     public static bool isPathDistant = false;
 
     private List<Dictionary<string, string>> csvData;
@@ -71,6 +71,9 @@ public class Week2Manager : MonoBehaviour
 
     public void StartWeek2()
     {
+        // RESET FLAG AWAL GAME AGAR TIDAK NYANGKUT
+        isPathDistant = false; 
+
         if (week2Section != null) week2Section.SetActive(true);
 
         if (statusPanel != null)
@@ -106,7 +109,7 @@ public class Week2Manager : MonoBehaviour
         if (interludeText != null)
         {
             interludeText.gameObject.SetActive(true);
-            interludeText.text = "Week 2 - Do Not Disturb"; 
+            interludeText.text = "Week 2 - First Signal"; 
             SetTextAlpha(interludeText, 1f); 
         }
 
@@ -534,8 +537,21 @@ public class Week2Manager : MonoBehaviour
         activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_A")); 
     }
 
-    public void OnSelectOption2B() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_B")); }
-    public void OnSelectOption2C() { DisableChoicePanelWeek2(); if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_C")); }
+    public void OnSelectOption2B() 
+    { 
+        isPathDistant = false; // Reset ke Netral
+        DisableChoicePanelWeek2(); 
+        if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); 
+        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_B")); 
+    }
+
+    public void OnSelectOption2C() 
+    { 
+        isPathDistant = false; // Reset ke Akrab/Close
+        DisableChoicePanelWeek2(); 
+        if (activeSceneCoroutine != null) StopCoroutine(activeSceneCoroutine); 
+        activeSceneCoroutine = StartCoroutine(PlaySceneFromCSV("CHOICE_02_C")); 
+    }
 
     private void DisableChoicePanelWeek2()
     {
