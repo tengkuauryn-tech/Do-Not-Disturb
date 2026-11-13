@@ -17,6 +17,6 @@ MonoBehaviour:
   stress: -3
   focus: 0
   energy: -5
-  relSagara: 10
+  relSagara: 20
   setFlag: path_close
   butuhFlag: 

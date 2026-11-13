@@ -9486,18 +9486,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1734393027}
-        m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
-        m_MethodName: TerapkanPilihan
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: cb98b266fac5aad4a83b86be58785b3a, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ChoiceData, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1812998345}
         m_TargetAssemblyTypeName: Week1Manager, Assembly-CSharp
         m_MethodName: ToggleDNDState
@@ -13050,6 +13038,134 @@ PrefabInstance:
       propertyPath: 'optionCanvasGroups.Array.data[2]'
       value: 
       objectReference: {fileID: 1632605692}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: c21b757d93f719544a5280ad6cc0073e, type: 2}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c1f9b3c5ca7e06428d67b175a2ce8ce, type: 2}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 296e0a8b33668b444bc85cab8c50089f, type: 2}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: bb9756da1a1583a4bac5fc977e87e8d3, type: 2}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseA.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyCloseB.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantA.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453648931406893173, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
+      propertyPath: onApplyDistantB.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7796549065059492694, guid: 3ce09a848d002cd4a9325843d63689a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 931.50604
@@ -13108,17 +13224,173 @@ PrefabInstance:
       value: WEEK3
       objectReference: {fileID: 0}
     - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
       objectReference: {fileID: 1265364780}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnSelectOption3A
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Week3Manager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 605df05a06a8ea64687d2761aed873ef, type: 2}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831464006914882098, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1265364780}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Week3Manager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 7850436e2e08b704396047f7fd0f783e, type: 2}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186649272272246230, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
       objectReference: {fileID: 1265364780}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnSelectOption3B
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Week3Manager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: f4cb39f2714c23847973bd1406e786dd, type: 2}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634579102558672288, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7651213859309438756, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -13200,9 +13472,61 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
       objectReference: {fileID: 1265364780}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnSelectOption3C
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Week3Manager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 08261045f2c3be0488e3e8b6f6530b05, type: 2}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166363985554891954, guid: 773a7ef779728a44e8cd33ca85d8c567, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13288,6 +13612,102 @@ PrefabInstance:
       propertyPath: kiranaSagaraVisual
       value: 
       objectReference: {fileID: 904951068}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1734393027}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerapkanPilihan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StatManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 35c4a323db00714409ea76b82201cf8e, type: 2}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ba445f082861404195233457b18398b, type: 2}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 20e5c2096c2a54a4f823a356bfcd693e, type: 2}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionA.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplyOptionB.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139553842185448624, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
+      propertyPath: onApplySoloStudy.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ChoiceData, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5253639012257771892, guid: 0874aa52b5adc9747ac093f5fd54c041, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1174.0884

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events; // <-- Tambahan baru untuk sistem Events
 
 public class Week5Manager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Week5Manager : MonoBehaviour
     public GameObject optionB1;                
     public GameObject optionB2;                
     public GameObject noRomanceVisual;         
-    public GameObject laptopStudyVisual; // <--- SLOT BARU UNTUK BACKGROUND LAPTOP
+    public GameObject laptopStudyVisual; 
 
     [Header("Choice Panel, Blur & Buttons")]
     public CanvasGroup choicePanelWeek5;       
@@ -39,6 +40,15 @@ public class Week5Manager : MonoBehaviour
 
     [Header("CSV Database")]
     public TextAsset week5CsvFile;             
+
+    // ==========================================
+    // TAMBAHAN BARU UNTUK SLOT CHOICE DATA
+    // ==========================================
+    [Header("Stat Events (Isi dengan StatManager & ChoiceData)")]
+    public UnityEvent onApplyOptionA;
+    public UnityEvent onApplyOptionB;
+    public UnityEvent onApplySoloStudy;
+    // ==========================================
 
     private Image dialogBoxImageComponent;
     private bool userTapped = false;
@@ -251,6 +261,8 @@ public class Week5Manager : MonoBehaviour
             blackOverlay.gameObject.SetActive(false);
         }
 
+        onApplySoloStudy?.Invoke(); // <-- Pemicu otomatis pemotongan stat saat adegan Solo Study dimulai
+
         yield return new WaitForSeconds(0.5f);
 
         // --- DIALOG BAGIAN 1 (Visual Awal Kirana) ---
@@ -360,6 +372,7 @@ public class Week5Manager : MonoBehaviour
 
     public void OnSelectOptionA()
     {
+        onApplyOptionA?.Invoke(); // <-- Pemicu stat untuk Date Kafe Opsi A
         ResetChoicePanel();
         FindAndJumpToScene("CHOICE_05_01A");
         StopAllCoroutines();
@@ -368,6 +381,7 @@ public class Week5Manager : MonoBehaviour
 
     public void OnSelectOptionB()
     {
+        onApplyOptionB?.Invoke(); // <-- Pemicu stat untuk Date Kafe Opsi B
         ResetChoicePanel();
         FindAndJumpToScene("CHOICE_05_01B");
         StopAllCoroutines();

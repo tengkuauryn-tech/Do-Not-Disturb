@@ -17,6 +17,6 @@ MonoBehaviour:
   stress: -3
   focus: 8
   energy: -5
-  relSagara: 6
+  relSagara: 15
   setFlag: study_group_formed
   butuhFlag: 

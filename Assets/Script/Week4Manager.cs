@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Events; // <-- Tambahan baru agar bisa pakai kolom On Click di Inspector
 
 public class Week4Manager : MonoBehaviour
 {
@@ -42,6 +43,16 @@ public class Week4Manager : MonoBehaviour
     public AudioSource sfxSource;
     public AudioClip messageSFX;
     public AudioClip beepSFX;
+
+    // ==========================================
+    // TAMBAHAN BARU UNTUK SLOT CHOICE DATA
+    // ==========================================
+    [Header("Stat Events (Isi dengan StatManager & ChoiceData)")]
+    public UnityEvent onApplyCloseA;
+    public UnityEvent onApplyCloseB;
+    public UnityEvent onApplyDistantA;
+    public UnityEvent onApplyDistantB;
+    // ==========================================
 
     private Image dialogBoxImageComponent;
     private bool userTapped = false;
@@ -193,6 +204,7 @@ public class Week4Manager : MonoBehaviour
 
     public void OnSelectCloseOptionA() 
     {
+        onApplyCloseA?.Invoke(); // <-- Trigger pengubah poin untuk Close A
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunCloseOptionASequence());
@@ -213,6 +225,7 @@ public class Week4Manager : MonoBehaviour
 
     public void OnSelectCloseOptionB() 
     {
+        onApplyCloseB?.Invoke(); // <-- Trigger pengubah poin untuk Close B
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunCloseOptionBSequence());
@@ -251,6 +264,7 @@ public class Week4Manager : MonoBehaviour
 
     public void OnSelectDistantOptionA() 
     {
+        onApplyDistantA?.Invoke(); // <-- Trigger pengubah poin untuk Distant A
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunDistantOptionASequence());
@@ -271,6 +285,7 @@ public class Week4Manager : MonoBehaviour
 
     public void OnSelectDistantOptionB() 
     {
+        onApplyDistantB?.Invoke(); // <-- Trigger pengubah poin untuk Distant B
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunDistantOptionBSequence());
