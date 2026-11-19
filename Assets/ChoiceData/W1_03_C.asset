@@ -16,7 +16,7 @@ MonoBehaviour:
   task: 10
   stress: 0
   focus: 8
-  energy: 0
+  energy: -5
   relSagara: 0
   setFlag: hendra_warned
   butuhFlag: 

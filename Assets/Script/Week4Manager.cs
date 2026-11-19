@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Week4Manager : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class Week4Manager : MonoBehaviour
     public CanvasGroup[] optionCanvasGroups;   
     public Button buttonAText;                 
     public Button buttonBText;                 
+    public Button buttonRest;                  // <-- Slot baru untuk tombol Rest / Istirahat
+    public float delayBeforeFirstButton = 0.2f;
+    public float delayBetweenButtons = 0.15f;
+    public float buttonFadeDuration = 0.3f;
 
     [Header("Interlude / Overlay Assets")]
     public Image blackOverlay;               
@@ -42,6 +47,17 @@ public class Week4Manager : MonoBehaviour
     public AudioSource sfxSource;
     public AudioClip messageSFX;
     public AudioClip beepSFX;
+
+    // ==========================================
+    // SLOT CHOICE DATA
+    // ==========================================
+    [Header("Stat Events (Isi dengan StatManager & ChoiceData)")]
+    public UnityEvent onApplyCloseA;
+    public UnityEvent onApplyCloseB;
+    public UnityEvent onApplyDistantA;
+    public UnityEvent onApplyDistantB;
+    public UnityEvent onApplyRest;             // <-- Event pengubah poin saat pilih Istirahat
+    // ==========================================
 
     private Image dialogBoxImageComponent;
     private bool userTapped = false;
@@ -175,8 +191,17 @@ public class Week4Manager : MonoBehaviour
     }
 
     // ==========================================
-    // PILIHAN JALUR CLOSE & DISTANT
+    // PILIHAN JALUR CLOSE, DISTANT & REST
     // ==========================================
+    private void SetupRestButton()
+    {
+        if (buttonRest != null)
+        {
+            buttonRest.onClick.RemoveAllListeners();
+            buttonRest.onClick.AddListener(OnSelectRest);
+        }
+    }
+
     private void ShowChoicesClose()
     {
         SetButtonText(buttonAText, "A. Ungkapkan kecemasan");
@@ -188,11 +213,14 @@ public class Week4Manager : MonoBehaviour
         buttonBText.onClick.RemoveAllListeners();
         buttonBText.onClick.AddListener(OnSelectCloseOptionB);
 
+        SetupRestButton();
+
         if (choicePanelWeek4 != null) choicePanelWidthAndShow();
     }
 
     public void OnSelectCloseOptionA() 
     {
+        onApplyCloseA?.Invoke();
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunCloseOptionASequence());
@@ -213,6 +241,7 @@ public class Week4Manager : MonoBehaviour
 
     public void OnSelectCloseOptionB() 
     {
+        onApplyCloseB?.Invoke();
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunCloseOptionBSequence());
@@ -246,11 +275,14 @@ public class Week4Manager : MonoBehaviour
         buttonBText.onClick.RemoveAllListeners();
         buttonBText.onClick.AddListener(OnSelectDistantOptionB);
 
+        SetupRestButton();
+
         if (choicePanelWeek4 != null) choicePanelWidthAndShow();
     }
 
     public void OnSelectDistantOptionA() 
     {
+        onApplyDistantA?.Invoke();
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunDistantOptionASequence());
@@ -271,6 +303,7 @@ public class Week4Manager : MonoBehaviour
 
     public void OnSelectDistantOptionB() 
     {
+        onApplyDistantB?.Invoke();
         ResetChoicePanel();
         StopAllCoroutines();
         StartCoroutine(RunDistantOptionBSequence());
@@ -278,15 +311,54 @@ public class Week4Manager : MonoBehaviour
 
     IEnumerator RunDistantOptionBSequence()
     {
-        // Matikan HP lebih dulu agar terlihat Kirana menutup HP
         if (phoneUI != null) phoneUI.SetActive(false);
 
-        // Mainkan dialog narasi Kirana SAAT LAYAR MASIH TERANG agar terlihat jelas
         yield return StartCoroutine(PlayDialog("Kirana", "Aku mematikan layar HP dan menatap langit-langit kamar."));
         if (dialogBoxObject != null) dialogBoxObject.SetActive(false);
         yield return new WaitForSeconds(0.5f);
 
-        // Baru jalankan transisi fade-out ke Week 5
+        yield return StartCoroutine(TransitionToWeek5());
+    }
+
+    // --- HANDLER PILIHAN REST / ISTIRAHAT ---
+    public void OnSelectRest()
+    {
+        onApplyRest?.Invoke();
+        ResetChoicePanel();
+        StopAllCoroutines();
+        StartCoroutine(RunRestSequence());
+    }
+
+    IEnumerator RunRestSequence()
+    {
+        if (phoneUI != null) phoneUI.SetActive(false);
+        if (dialogBoxObject != null) dialogBoxObject.SetActive(false);
+        if (invisibleTapButton != null) invisibleTapButton.gameObject.SetActive(false);
+
+        // Fade ke layar hitam
+        if (blackOverlay != null)
+        {
+            blackOverlay.gameObject.SetActive(true);
+            blackOverlay.transform.SetAsLastSibling();
+            yield return StartCoroutine(FadeImageAlpha(blackOverlay, blackOverlay.color.a, 1f, 0.7f));
+        }
+
+        // Tampilkan teks interlude istirahat singkat
+        if (weekTitleText != null)
+        {
+            weekTitleText.text = "Kirana memilih untuk beristirahat malam ini...";
+            weekTitleText.transform.SetAsLastSibling();
+            weekTitleText.gameObject.SetActive(true);
+            Color textColor = weekTitleText.color;
+            textColor.a = 1f;
+            weekTitleText.color = textColor;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+
+        if (weekTitleText != null) weekTitleText.gameObject.SetActive(false);
+
+        // Langsung masuk ke Week 5
         yield return StartCoroutine(TransitionToWeek5());
     }
 
@@ -309,7 +381,7 @@ public class Week4Manager : MonoBehaviour
         Week5Manager w5 = FindFirstObjectByType<Week5Manager>(FindObjectsInactive.Include);
         if (w5 != null)
         {
-            w5.gameObject.SetActive(true); // Pastikan GameObject Week 5 aktif di Hierarchy!
+            w5.gameObject.SetActive(true);
             w5.enabled = true;
             w5.StartWeek5();
         }
@@ -394,10 +466,35 @@ public class Week4Manager : MonoBehaviour
                 if (cg != null)
                 {
                     cg.gameObject.SetActive(true);
-                    cg.alpha = 1f;
-                    cg.interactable = true;
-                    cg.blocksRaycasts = true;
+                    cg.alpha = 0f;
+                    cg.interactable = false;
+                    cg.blocksRaycasts = false;
                 }
+            }
+            StartCoroutine(AnimateButtonsStaggered(optionCanvasGroups));
+        }
+    }
+
+    IEnumerator AnimateButtonsStaggered(CanvasGroup[] targetButtons)
+    {
+        yield return new WaitForSeconds(delayBeforeFirstButton);
+        if (targetButtons == null) yield break;
+
+        foreach (CanvasGroup cg in targetButtons)
+        {
+            if (cg != null && cg.gameObject.activeSelf)
+            {
+                float t = 0f;
+                while (t < buttonFadeDuration)
+                {
+                    t += Time.deltaTime;
+                    cg.alpha = Mathf.Lerp(0f, 1f, t / buttonFadeDuration);
+                    yield return null;
+                }
+                cg.alpha = 1f;
+                cg.interactable = true;
+                cg.blocksRaycasts = true;
+                yield return new WaitForSeconds(delayBetweenButtons);
             }
         }
     }

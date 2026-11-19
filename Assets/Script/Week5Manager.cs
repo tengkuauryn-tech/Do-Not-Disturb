@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events; // <-- Tambahan baru untuk sistem Events
 
 public class Week5Manager : MonoBehaviour
 {
@@ -18,13 +19,16 @@ public class Week5Manager : MonoBehaviour
     public GameObject optionB1;                
     public GameObject optionB2;                
     public GameObject noRomanceVisual;         
-    public GameObject laptopStudyVisual; // <--- SLOT BARU UNTUK BACKGROUND LAPTOP
+    public GameObject laptopStudyVisual; 
 
     [Header("Choice Panel, Blur & Buttons")]
     public CanvasGroup choicePanelWeek5;       
     public GameObject overlayBlur;             
     public Button buttonAText;                 
     public Button buttonBText;                 
+    public float delayBeforeFirstButton = 0.2f;
+    public float delayBetweenButtons = 0.15f;
+    public float buttonFadeDuration = 0.3f;
 
     [Header("Dialogue System (GLOBAL UI)")]
     public GameObject dialogBoxObject;     
@@ -39,6 +43,15 @@ public class Week5Manager : MonoBehaviour
 
     [Header("CSV Database")]
     public TextAsset week5CsvFile;             
+
+    // ==========================================
+    // TAMBAHAN BARU UNTUK SLOT CHOICE DATA
+    // ==========================================
+    [Header("Stat Events (Isi dengan StatManager & ChoiceData)")]
+    public UnityEvent onApplyOptionA;
+    public UnityEvent onApplyOptionB;
+    public UnityEvent onApplySoloStudy;
+    // ==========================================
 
     private Image dialogBoxImageComponent;
     private bool userTapped = false;
@@ -251,6 +264,8 @@ public class Week5Manager : MonoBehaviour
             blackOverlay.gameObject.SetActive(false);
         }
 
+        onApplySoloStudy?.Invoke(); // <-- Pemicu otomatis pemotongan stat saat adegan Solo Study dimulai
+
         yield return new WaitForSeconds(0.5f);
 
         // --- DIALOG BAGIAN 1 (Visual Awal Kirana) ---
@@ -264,6 +279,18 @@ public class Week5Manager : MonoBehaviour
         yield return StartCoroutine(PlayDialog("Kirana", "Mending weekend ini aku fokus belajar aja daripada pergi ke luar."));
 
         if (dialogBoxObject != null) dialogBoxObject.SetActive(false);
+
+        // --- TAMBAHAN PEMANGGILAN WEEK 6 DI SINI ---
+        Week6Manager w6 = FindFirstObjectByType<Week6Manager>(FindObjectsInactive.Include);
+        if (w6 != null)
+        {
+            w6.enabled = true;
+            w6.StartWeek6();
+        }
+
+        if (week5Section != null) week5Section.SetActive(false);
+        this.enabled = false;
+        // ------------------------------------------
     }
 
     IEnumerator PlayCsvDialogueSequence(string targetSceneID)
@@ -296,6 +323,17 @@ public class Week5Manager : MonoBehaviour
 
             if (row.nextSceneID == "END")
             {
+                // --- TAMBAHAN PEMANGGILAN WEEK 6 DI SINI ---
+                Week6Manager w6 = FindFirstObjectByType<Week6Manager>(FindObjectsInactive.Include);
+                if (w6 != null)
+                {
+                    w6.enabled = true;
+                    w6.StartWeek6();
+                }
+                
+                if (week5Section != null) week5Section.SetActive(false);
+                this.enabled = false;
+                // ------------------------------------------
                 break;
             }
         }
@@ -346,6 +384,8 @@ public class Week5Manager : MonoBehaviour
         buttonBText.onClick.RemoveAllListeners();
         buttonBText.onClick.AddListener(OnSelectOptionB);
 
+        if (overlayBlur != null) overlayBlur.SetActive(true);
+
         if (choicePanelWeek5 != null)
         {
             choicePanelWeek5.transform.SetAsLastSibling();
@@ -355,11 +395,58 @@ public class Week5Manager : MonoBehaviour
             choicePanelWeek5.blocksRaycasts = true;
         }
 
-        if (overlayBlur != null) overlayBlur.SetActive(true); 
+        CanvasGroup cgA = GetOrAddCanvasGroup(buttonAText);
+        CanvasGroup cgB = GetOrAddCanvasGroup(buttonBText);
+        PrepareButtonForFade(cgA);
+        PrepareButtonForFade(cgB);
+
+        StartCoroutine(AnimateButtonsStaggered(new CanvasGroup[] { cgA, cgB }));
+    }
+
+    private CanvasGroup GetOrAddCanvasGroup(Button btn)
+    {
+        if (btn == null) return null;
+        CanvasGroup cg = btn.GetComponent<CanvasGroup>();
+        if (cg == null) cg = btn.gameObject.AddComponent<CanvasGroup>();
+        return cg;
+    }
+
+    private void PrepareButtonForFade(CanvasGroup cg)
+    {
+        if (cg == null) return;
+        cg.gameObject.SetActive(true);
+        cg.alpha = 0f;
+        cg.interactable = false;
+        cg.blocksRaycasts = false;
+    }
+
+    IEnumerator AnimateButtonsStaggered(CanvasGroup[] targetButtons)
+    {
+        yield return new WaitForSeconds(delayBeforeFirstButton);
+        if (targetButtons == null) yield break;
+
+        foreach (CanvasGroup cg in targetButtons)
+        {
+            if (cg != null && cg.gameObject.activeSelf)
+            {
+                float t = 0f;
+                while (t < buttonFadeDuration)
+                {
+                    t += Time.deltaTime;
+                    cg.alpha = Mathf.Lerp(0f, 1f, t / buttonFadeDuration);
+                    yield return null;
+                }
+                cg.alpha = 1f;
+                cg.interactable = true;
+                cg.blocksRaycasts = true;
+                yield return new WaitForSeconds(delayBetweenButtons);
+            }
+        }
     }
 
     public void OnSelectOptionA()
     {
+        onApplyOptionA?.Invoke(); // <-- Pemicu stat untuk Date Kafe Opsi A
         ResetChoicePanel();
         FindAndJumpToScene("CHOICE_05_01A");
         StopAllCoroutines();
@@ -368,6 +455,7 @@ public class Week5Manager : MonoBehaviour
 
     public void OnSelectOptionB()
     {
+        onApplyOptionB?.Invoke(); // <-- Pemicu stat untuk Date Kafe Opsi B
         ResetChoicePanel();
         FindAndJumpToScene("CHOICE_05_01B");
         StopAllCoroutines();

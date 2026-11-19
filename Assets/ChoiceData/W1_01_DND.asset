@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: W1_01_DND
   m_EditorClassIdentifier: Assembly-CSharp::ChoiceData
   teksPilihan: 
-  task: 5
+  task: 0
   stress: -3
   focus: 8
-  energy: 0
+  energy: 3
   relSagara: 0
   setFlag: early_dnd_user
   butuhFlag: 

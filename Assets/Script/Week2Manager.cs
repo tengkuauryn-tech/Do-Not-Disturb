@@ -58,6 +58,7 @@ public class Week2Manager : MonoBehaviour
     public CanvasGroup[] optionCanvasGroups;
     public float delayBeforeFirstButton = 0.2f;
     public float delayBetweenButtons = 0.15f;
+    public float buttonFadeDuration = 0.3f;
 
     // --- FLAG GLOBAL UNTUK PATH DISTANT (DIBACA DI WEEK 3, 4, 5) ---
     public static bool isPathDistant = false;
@@ -490,6 +491,18 @@ public class Week2Manager : MonoBehaviour
         {
             choicePanelValueLocal(); 
         }
+        if (optionCanvasGroups != null)
+        {
+            foreach (CanvasGroup cg in optionCanvasGroups)
+            {
+                if (cg != null)
+                {
+                    cg.alpha = 0f;
+                    cg.interactable = false;
+                    cg.blocksRaycasts = false;
+                }
+            }
+        }
     }
 
     private void choicePanelValueLocal()
@@ -503,6 +516,20 @@ public class Week2Manager : MonoBehaviour
 
     IEnumerator AnimateButtonsStaggered(CanvasGroup[] targetButtons)
     {
+        if (targetButtons != null)
+        {
+            foreach (CanvasGroup cg in targetButtons)
+            {
+                if (cg != null)
+                {
+                    cg.alpha = 0f;
+                    cg.interactable = false;
+                    cg.blocksRaycasts = false;
+                    cg.gameObject.SetActive(true);
+                }
+            }
+        }
+
         yield return new WaitForSeconds(delayBeforeFirstButton);
         if (choicePanelWeek2 != null)
         {
@@ -513,7 +540,21 @@ public class Week2Manager : MonoBehaviour
         {
             foreach (CanvasGroup cg in targetButtons)
             {
-                if (cg != null) { cg.gameObject.SetActive(true); cg.alpha = 1f; cg.interactable = true; cg.blocksRaycasts = true; yield return new WaitForSeconds(delayBetweenButtons); }
+                if (cg != null)
+                {
+                    cg.gameObject.SetActive(true);
+                    float t = 0f;
+                    while (t < buttonFadeDuration)
+                    {
+                        t += Time.deltaTime;
+                        cg.alpha = Mathf.Lerp(0f, 1f, t / buttonFadeDuration);
+                        yield return null;
+                    }
+                    cg.alpha = 1f;
+                    cg.interactable = true;
+                    cg.blocksRaycasts = true;
+                    yield return new WaitForSeconds(delayBetweenButtons);
+                }
             }
         }
     }

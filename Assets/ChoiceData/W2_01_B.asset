@@ -16,7 +16,7 @@ MonoBehaviour:
   task: 0
   stress: 0
   focus: 0
-  energy: 0
-  relSagara: 3
+  energy: -3
+  relSagara: 5
   setFlag: path_neutral
   butuhFlag: 

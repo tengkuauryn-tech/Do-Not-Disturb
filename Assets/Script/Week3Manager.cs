@@ -34,6 +34,9 @@ public class Week3Manager : MonoBehaviour
     [Header("Choice Panel & Buttons (Array 4 Elemen)")]
     public CanvasGroup choicePanelWeek3;       
     public CanvasGroup[] optionCanvasGroups;   // Size: 4 (0: DND, 1: Tombol A, 2: Tombol B, 3: Tombol C)
+    public float delayBeforeFirstButton = 0.2f;
+    public float delayBetweenButtons = 0.15f;
+    public float buttonFadeDuration = 0.3f;
 
     [Header("DND Mechanic Controls (Sprite Swap)")]
     public Button dndToggleButton;
@@ -202,12 +205,12 @@ public class Week3Manager : MonoBehaviour
 
         if (optionCanvasGroups != null && optionCanvasGroups.Length >= 4)
         {
-            // Slot 0: Tombol DND (Tetap aktif)
+            // Slot 0: Tombol DND (Siapkan untuk fade-in)
             if (optionCanvasGroups[0] != null)
             {
                 optionCanvasGroups[0].gameObject.SetActive(true);
-                optionCanvasGroups[0].alpha = 1f;
-                SetCanvasGroupInteractable(optionCanvasGroups[0], true);
+                optionCanvasGroups[0].alpha = 0f;
+                SetCanvasGroupInteractable(optionCanvasGroups[0], false);
             }
 
             Button btn1 = optionCanvasGroups[1] != null ? optionCanvasGroups[1].GetComponent<Button>() : null;
@@ -244,10 +247,13 @@ public class Week3Manager : MonoBehaviour
                 if (optionCanvasGroups[3] != null)
                 {
                     optionCanvasGroups[3].gameObject.SetActive(true);
-                    optionCanvasGroups[3].alpha = 1f;
-                    SetCanvasGroupInteractable(optionCanvasGroups[3], true);
+                    optionCanvasGroups[3].alpha = 0f;
+                    SetCanvasGroupInteractable(optionCanvasGroups[3], false);
                 }
             }
+
+            // Jalankan animasi muncul satu per satu untuk semua tombol yang aktif
+            StartCoroutine(AnimateButtonsStaggered(optionCanvasGroups));
         }
     }
 
@@ -259,9 +265,9 @@ public class Week3Manager : MonoBehaviour
         CanvasGroup cg = btn.GetComponent<CanvasGroup>();
         if (cg != null)
         {
-            cg.alpha = 1f;
-            cg.interactable = true;
-            cg.blocksRaycasts = true;
+            cg.alpha = 0f;
+            cg.interactable = false;
+            cg.blocksRaycasts = false;
         }
 
         TMP_Text txt = btn.GetComponentInChildren<TMP_Text>();
@@ -269,6 +275,29 @@ public class Week3Manager : MonoBehaviour
 
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(action);
+    }
+
+    IEnumerator AnimateButtonsStaggered(CanvasGroup[] targetButtons)
+    {
+        yield return new WaitForSeconds(delayBeforeFirstButton);
+        if (targetButtons == null) yield break;
+
+        foreach (CanvasGroup cg in targetButtons)
+        {
+            if (cg != null && cg.gameObject.activeSelf)
+            {
+                float t = 0f;
+                while (t < buttonFadeDuration)
+                {
+                    t += Time.deltaTime;
+                    cg.alpha = Mathf.Lerp(0f, 1f, t / buttonFadeDuration);
+                    yield return null;
+                }
+                cg.alpha = 1f;
+                SetCanvasGroupInteractable(cg, true);
+                yield return new WaitForSeconds(delayBetweenButtons);
+            }
+        }
     }
 
     // ==========================================
